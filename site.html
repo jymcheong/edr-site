@@ -202,12 +202,74 @@
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       .container { grid-template-columns: 1fr; gap: 1.5rem; margin: 0.5rem auto; padding: 0 1rem; }
-      .sidebar { position: static; width: 100%; order: 2; border: none !important; background: transparent !important; box-shadow: none !important; padding: 1rem 0 !important; }
-      main { order: 1; }
-      .header-container { flex-direction: column; gap: 0.75rem; text-align: center; padding: 0 1rem; }
+      
+      /* Mobile / Tablet Drawer Sidebar */
+      .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: -320px !important;
+        width: 290px !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        z-index: 9999 !important;
+        background: rgba(18, 6, 6, 0.96) !important;
+        backdrop-filter: blur(24px) !important;
+        border-right: 1px solid rgba(220, 38, 38, 0.3) !important;
+        border-radius: 0 !important;
+        padding: 2rem 1.5rem !important;
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.8) !important;
+        transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        overflow-y: auto !important;
+      }
+      .sidebar.open {
+        left: 0 !important;
+      }
+
+      /* Backdrop overlay */
+      #sidebar-backdrop {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(4px);
+        z-index: 9998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      #sidebar-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .menu-toggle {
+        display: inline-flex !important;
+      }
+
+      main { width: 100%; }
       #main-content { padding: 1.5rem !important; }
+    }
+
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(40, 10, 10, 0.6);
+      border: 1px solid rgba(220, 38, 38, 0.35);
+      color: var(--accent);
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+    .menu-toggle:hover {
+      background: rgba(60, 14, 14, 0.9);
+      border-color: var(--accent);
     }
 
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
@@ -281,10 +343,15 @@
 
   <header>
     <div class="header-container">
-      <a href="index.html" class="logo" title="Back to Landing Page">
-        <span class="logo-prefix">&gt;</span>
-        edr.sg
-      </a>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="menu-toggle" id="menu-btn" aria-label="Toggle Sidebar" onclick="toggleSidebar()">
+          &#9776;
+        </button>
+        <a href="index.html" class="logo" title="Back to Landing Page">
+          <span class="logo-prefix">&gt;</span>
+          edr.sg
+        </a>
+      </div>
       <div style="display: flex; align-items: center; gap: 1.5rem;">
         <a href="index.html" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); text-decoration: none; border: 1px solid rgba(220,38,38,0.3); padding: 0.35rem 0.75rem; border-radius: 4px;">
           &larr; LANDING
@@ -293,25 +360,29 @@
     </div>
   </header>
 
+  <!-- Mobile Backdrop -->
+  <div id="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
+
   <div class="container">
-    <aside class="sidebar">
-      <div class="product-title">edr.sg</div>
+    <aside class="sidebar" id="app-sidebar">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+        <div class="product-title">edr.sg</div>
+        <button class="menu-toggle" style="padding: 0.2rem 0.5rem; font-size: 0.9rem;" onclick="toggleSidebar(false)" aria-label="Close Sidebar">&times;</button>
+      </div>
       <div class="product-tagline">Vaccination · Diversion · Agentic SecOps</div>
       <p class="product-bio">
         Cost-effective active defense for non-profits, NGOs, and social enterprises. At cost. No profit.
       </p>
 
-
-
       <div class="tag-container">
         <h3 class="tag-title">Topics</h3>
         <div class="tags">
-          <a href="#advisories" class="tag">all</a>
-          <a href="#advisories?tag=endpoint-defense" class="tag">endpoint-defense</a>
-          <a href="#advisories?tag=detection-engineering" class="tag">detection-engineering</a>
-          <a href="#advisories?tag=threat-intel" class="tag">threat-intel</a>
-          <a href="#advisories?tag=incident-response" class="tag">incident-response</a>
-          <a href="#advisories?tag=agentic-threats" class="tag">agentic-threats</a>
+          <a href="#advisories" class="tag" onclick="toggleSidebar(false)">all</a>
+          <a href="#advisories?tag=endpoint-defense" class="tag" onclick="toggleSidebar(false)">endpoint-defense</a>
+          <a href="#advisories?tag=detection-engineering" class="tag" onclick="toggleSidebar(false)">detection-engineering</a>
+          <a href="#advisories?tag=threat-intel" class="tag" onclick="toggleSidebar(false)">threat-intel</a>
+          <a href="#advisories?tag=incident-response" class="tag" onclick="toggleSidebar(false)">incident-response</a>
+          <a href="#advisories?tag=agentic-threats" class="tag" onclick="toggleSidebar(false)">agentic-threats</a>
         </div>
       </div>
     </aside>
@@ -322,6 +393,27 @@
       </div>
     </main>
   </div>
+
+  <script>
+    function toggleSidebar(forceState) {
+      const sidebar = document.getElementById('app-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (!sidebar || !backdrop) return;
+      
+      const isOpen = sidebar.classList.contains('open');
+      const nextState = (forceState !== undefined) ? forceState : !isOpen;
+      
+      if (nextState) {
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+  </script>
 
   <iframe hidden name="htmz" onload="setTimeout(()=>{if(this.targetSelector){const t=document.querySelector(this.targetSelector);if(t&&contentDocument&&contentDocument.body){const c=contentDocument.body.firstElementChild;t.innerHTML=(c&&c.id==='main-content')?c.innerHTML:contentDocument.body.innerHTML;window.scrollTo(0,0);}}})" ></iframe>
 
