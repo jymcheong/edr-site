@@ -1,21 +1,283 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>edr.sg</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  body { margin:0; height:100vh; display:flex; align-items:center; justify-content:center;
-         background:#0b0f14; color:#e6edf3; font-family:-apple-system,Segoe UI,sans-serif; }
-  .box { text-align:center; }
-  h1 { font-size:2.5rem; margin:0 0 .5rem; letter-spacing:.05em; }
-  p { color:#8b949e; margin:0; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="edr.sg — Sovereign endpoint defense and active threat detection.">
+  <title>edr.sg</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0505;
+      --accent: #ff2d2d;
+      --accent-glow: rgba(255, 45, 45, 0.2);
+      --text: #f0eaea;
+      --text-muted: #6b5555;
+      --font-heading: 'Jura', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-heading);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Canvas */
+    #bg-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* Subtle grid */
+    .grid-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image:
+        linear-gradient(to right, rgba(220,38,38,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220,38,38,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* Red glow top-right */
+    .glow {
+      position: fixed; top: -15%; right: -10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(220,38,38,0.08) 0%, transparent 65%);
+      z-index: 0; pointer-events: none;
+      filter: blur(60px);
+    }
+
+    /* Main content */
+    .stage {
+      position: relative; z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      max-width: 640px;
+      width: 100%;
+    }
+
+    .logo-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo-caret {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      animation: blink 1.2s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .logo-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .headline {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .headline em {
+      font-style: normal;
+      color: var(--accent);
+      text-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    .subline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Status bar */
+    .status-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(18,6,6,0.7);
+      border: 1px solid rgba(220,38,38,0.18);
+      border-radius: 999px;
+      padding: 0.5rem 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--accent); }
+      50% { opacity: 0.4; box-shadow: 0 0 2px var(--accent); }
+    }
+
+    /* Compact, understated action button */
+    .learn-more-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      margin-top: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #c09090;
+      background: rgba(30, 8, 8, 0.4);
+      border: 1px solid rgba(220, 38, 38, 0.25);
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: all 0.2s ease;
+    }
+    .learn-more-link:hover {
+      color: #fff;
+      background: rgba(50, 10, 10, 0.7);
+      border-color: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    @media (max-width: 480px) {
+      .headline { font-size: 1.9rem; }
+      .subline { font-size: 0.9rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; }
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
 </head>
 <body>
-  <div class="box">
-    <h1>edr.sg</h1>
-    <p>Coming soon.</p>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="grid-overlay"></div>
+  <div class="glow"></div>
+
+  <div class="stage" id="stage" style="opacity:0;">
+    <div class="logo-line">
+      <span class="logo-caret">_</span>
+      <span class="logo-name">edr.sg</span>
+    </div>
+
+    <h1 class="headline">
+      Endpoint Defense &amp; Response.<br>
+      <span style="font-size:0.55em; font-weight:600; letter-spacing:0.08em; color:#a07878;">VACCINATION · DIVERSION · AUTONOMOUS SECOPS</span>
+    </h1>
+
+    <p class="subline">
+      Protecting the underserved — non-profits, NGOs, and social enterprises.<br>At cost. No profit.
+    </p>
+
+    <div style="display:flex; flex-direction:column; align-items:center;">
+      <div class="status-bar">
+        <span class="status-dot"></span>
+        IN DEVELOPMENT
+      </div>
+
+      <a href="site.html" class="learn-more-link">
+        Learn More &rarr;
+      </a>
+    </div>
   </div>
+
+
+  <script>
+    // Particle canvas
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    class P {
+      constructor() {
+        this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3;
+        this.r = Math.random() * 1.5 + 0.5;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(220,38,38,0.2)'; ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 50; i++) particles.push(new P());
+
+    (function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i]; p1.update(); p1.draw();
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+          if (d < 120) {
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(220,38,38,${(1 - d/120) * 0.06})`; ctx.lineWidth = 1; ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    })();
+
+    // Fade in stage
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof anime !== 'undefined') {
+        anime({ targets: '#stage', opacity: [0, 1], translateY: [16, 0], duration: 900, easing: 'easeOutQuart', delay: 200 });
+      } else {
+        document.getElementById('stage').style.opacity = '1';
+      }
+    });
+  </script>
 </body>
 </html>
