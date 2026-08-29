@@ -213,6 +213,19 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
   </style>
 
+  <!-- Analytics -->
+  <script>
+    window.goatcounter = {
+      allow_frame: true,
+      allow_local: true,
+      path: function(p) {
+        return location.pathname + (location.hash || '');
+      }
+    };
+  </script>
+  <script data-goatcounter="https://stats.edr.sg/count"
+          async src="https://stats.edr.sg/count.js"></script>
+
   <script>
     let pendingTagFilter = null;
 
@@ -247,6 +260,12 @@
           // Robust Cache-Busting via timestamp and random nonce
           const noCacheUrl = page + '?_t=' + Date.now() + '&_r=' + Math.random().toString(36).substring(7);
           htmzFrame.src = noCacheUrl;
+        }
+
+        if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+          window.goatcounter.count({
+            path: location.pathname + (location.hash || '#home')
+          });
         }
       }
 
