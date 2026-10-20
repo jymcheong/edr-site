@@ -1,99 +1,116 @@
-<div id="main-content">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The soft target myth: why attackers target NGOs · edr.sg</title>
+<meta name="description" content="Real incidents at the ICRC, SOS Children's Villages and civil-society groups, why adversaries target the third sector, and the edr.sg mandate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  .article-head h1 { font-size: clamp(36px, 5.2vw, 60px); }
+  .case { display: grid; grid-template-columns: 1fr 1.6fr; gap: 12px 32px; padding: 30px 0; }
+  .case .fig { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4vw, 40px); letter-spacing: -0.02em; line-height: 1.05; color: var(--ink); }
+  .case .what { font-family: var(--mono); font-size: 13px; color: var(--accent); margin-top: 8px; }
+  .case h3 { font-weight: 600; font-size: 20px; letter-spacing: -0.01em; line-height: 1.3; margin-bottom: 8px; }
+  .case p { margin: 0; }
+  .mandate { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 32px; margin-top: 56px; }
+  .mandate h2 { margin-top: 0; }
+  .mandate p { color: var(--ink); font-size: clamp(18px, 2vw, 21px); line-height: 1.55; margin: 0; }
+  @media (max-width: 860px) { .case { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="advisories.html">Advisories</a></li>
+      <li><a href="ngo-threats.html" aria-current="page">NGO dossier</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="advisories.html">Advisories</a></li>
+        <li><a href="ngo-threats.html" aria-current="page">NGO dossier</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+</div>
+<main class="article" id="content">
+  <header class="article-head">
+    <p class="meta">Threat briefing · Special report</p>
+    <h1>The soft target myth: how non-profits became prime adversary targets.</h1>
+    <p class="standfirst">Non-profits don't have corporate balance sheets, but they hold goldmines: refugee records, dissident communications, donor financial networks and critical frontline infrastructure. Adversaries know this.</p>
+  </header>
 
-  <!-- Breadcrumb / Back -->
-  <div style="margin-bottom: 2rem;">
-    <a href="#home" style="color: var(--accent); text-decoration: none; font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem;">
-      &larr; Back to Overview
-    </a>
-  </div>
-
-  <!-- Header -->
-  <div style="margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(220,38,38,0.18);">
-    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
-      <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em;">THREAT BRIEFING</span>
-      <span style="color: #7c6868; font-size: 0.8rem; font-family: var(--font-mono);">SPECIAL REPORT</span>
-    </div>
-    <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; line-height: 1.2; color: #fff; margin-bottom: 1rem;">
-      The Soft Target Myth: How Non-Profits Became Prime Adversary Targets
-    </h1>
-    <p style="color: #b89898; font-size: 1.05rem; line-height: 1.6; max-width: 720px;">
-      Non-profits don't have corporate balance sheets, but they hold goldmines: refugee records, dissident communications, donor financial networks, and critical frontline infrastructure. Adversaries know this.
-    </p>
-  </div>
-
-  <!-- Content Sections -->
-  <div style="max-width: 740px; color: #c8b4b4; font-size: 0.95rem; line-height: 1.8;">
-
-    <h2 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; color: #fff; margin: 2rem 0 1rem;">
-      1. Real Incidents: The Cost of Under-Protection
-    </h2>
-
-    <!-- Incident Card 1 -->
-    <div style="background: rgba(25,7,7,0.6); border: 1px solid rgba(220,38,38,0.2); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
-        <strong style="color: #fff; font-size: 1rem;">International Committee of the Red Cross (ICRC)</strong>
-        <span style="color: var(--accent); font-family: var(--font-mono); font-size: 0.8rem;">515,000+ Records Breached</span>
-      </div>
-      <p style="color: #a88888; font-size: 0.88rem; line-height: 1.5; margin: 0;">
-        Sophisticated state-aligned intrusion compromised personal data and confidential locations of over 515,000 vulnerable individuals fleeing war, disaster, and persecution. The "Restoring Family Links" humanitarian pipeline was halted worldwide.
-      </p>
-    </div>
-
-    <!-- Incident Card 2 -->
-    <div style="background: rgba(25,7,7,0.6); border: 1px solid rgba(220,38,38,0.2); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
-        <strong style="color: #fff; font-size: 1rem;">SOS Children's Villages Global Outage</strong>
-        <span style="color: var(--accent); font-family: var(--font-mono); font-size: 0.8rem;">136 Countries Paralyzed</span>
-      </div>
-      <p style="color: #a88888; font-size: 0.88rem; line-height: 1.5; margin: 0;">
-        Ransomware operations crippled child protection services and emergency relief across 136 territories. Aid workers were cut off from communication channels, food stipend disbursements, and beneficiary safety registries for days.
-      </p>
-    </div>
-
-    <!-- Incident Card 3 -->
-    <div style="background: rgba(25,7,7,0.6); border: 1px solid rgba(220,38,38,0.2); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
-        <strong style="color: #fff; font-size: 1rem;">Human Rights Defenders &amp; Civil Society</strong>
-        <span style="color: var(--accent); font-family: var(--font-mono); font-size: 0.8rem;">Zero-Click Spyware Targeting</span>
-      </div>
-      <p style="color: #a88888; font-size: 0.88rem; line-height: 1.5; margin: 0;">
-        Amnesty International and Citizen Lab investigations repeatedly uncover advanced commercial spyware implants weaponized against regional NGO directors, legal aid defenders, and whistleblowers to intercept field operations.
-      </p>
-    </div>
-
-    <h2 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; color: #fff; margin: 2rem 0 1rem;">
-      2. Why Adversaries Target the Sector
-    </h2>
-
-    <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;">
-      <li>
-        <strong style="color: #fff;">Irreplaceable Human Data:</strong> Compromising an enterprise exposes credit cards (replaceable). Compromising an NGO exposes political refugees, abuse victims, or undercover humanitarian workers (life-critical).
+  <article class="prose">
+    <h2>Real incidents: the cost of under-protection</h2>
+    <ul class="ruled">
+      <li class="case">
+        <div><div class="fig">515,000+</div><div class="what">records breached</div></div>
+        <div>
+          <h3>International Committee of the Red Cross (ICRC)</h3>
+          <p>A sophisticated, state-aligned intrusion compromised the personal data and confidential locations of over 515,000 vulnerable people fleeing war, disaster and persecution. The "Restoring Family Links" humanitarian pipeline was halted worldwide.</p>
+        </div>
       </li>
-      <li>
-        <strong style="color: #fff;">The Vendor Pricing Trap:</strong> Enterprise security vendors require 100+ minimum seat licenses ($25k–$70k/yr). NGOs run on tight grants with strict "overhead" caps, forcing them onto consumer antivirus.
+      <li class="case">
+        <div><div class="fig">136</div><div class="what">countries paralysed</div></div>
+        <div>
+          <h3>SOS Children's Villages global outage</h3>
+          <p>Ransomware crippled child protection services and emergency relief across 136 territories. Aid workers were cut off from communication channels, food stipend disbursements and beneficiary safety registries for days.</p>
+        </div>
       </li>
-      <li>
-        <strong style="color: #fff;">High Organizational Fluidity:</strong> Volunteers, field laptops, temporary staff, and decentralized partner networks create massive, porous attack surfaces.
+      <li class="case">
+        <div><div class="fig">0-click</div><div class="what">spyware targeting</div></div>
+        <div>
+          <h3>Human rights defenders and civil society</h3>
+          <p>Amnesty International and Citizen Lab investigations repeatedly uncover advanced commercial spyware implants weaponised against regional NGO directors, legal aid defenders and whistleblowers to intercept field operations.</p>
+        </div>
       </li>
     </ul>
 
-    <!-- Highlight Box -->
-    <div style="background: rgba(20,4,4,0.7); border-left: 3px solid var(--accent); padding: 1.25rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2.5rem;">
-      <h4 style="color: #fff; font-family: var(--font-heading); margin-bottom: 0.4rem; font-size: 1.05rem;">
-        The edr.sg Mandate
-      </h4>
-      <p style="color: #b89898; font-size: 0.9rem; margin: 0; line-height: 1.6;">
-        Defense cannot remain an exclusive luxury of Fortune 500 enterprises. We build automated, zero-overhead deception and vaccination tools so resource-constrained defenders can stop automated campaigns without enterprise retainers.
-      </p>
+    <h2>Why adversaries target the sector</h2>
+    <ul class="ruled reasons">
+      <li>
+        <h3>Irreplaceable human data.</h3>
+        <p>Compromising an enterprise exposes credit cards, which are replaceable. Compromising an NGO exposes political refugees, abuse victims or undercover humanitarian workers, which is life-critical.</p>
+      </li>
+      <li>
+        <h3>The vendor pricing trap.</h3>
+        <p>Enterprise security vendors require 100+ minimum seat licences ($25k–$70k a year). NGOs run on tight grants with strict "overhead" caps, which forces them onto consumer antivirus.</p>
+      </li>
+      <li>
+        <h3>High organisational fluidity.</h3>
+        <p>Volunteers, field laptops, temporary staff and decentralised partner networks create massive, porous attack surfaces.</p>
+      </li>
+    </ul>
+
+    <section class="mandate" aria-labelledby="mandate-h">
+      <h2 id="mandate-h">The edr.sg mandate</h2>
+      <p>Defense cannot remain an exclusive luxury of Fortune 500 enterprises. We build automated, zero-overhead deception and vaccination tools so resource-constrained defenders can stop automated campaigns without enterprise retainers.</p>
+    </section>
+
+    <p style="margin-top:40px"><a class="btn btn-outline" href="index.html#evidence">← Back to home</a></p>
+  </article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories.html">Advisories</a><a href="edr-bypass-etw.html">ETW brief</a><a href="ngo-threats.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="index.html#architecture">Architecture</a><a href="index.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about.html">The architect</a></div>
     </div>
-
+    <p class="legal">© 2026 edr.sg</p>
   </div>
-
-  <!-- Bottom Nav -->
-  <div style="border-top: 1px solid rgba(220,38,38,0.15); padding-top: 1.5rem;">
-    <a href="#home" style="color: var(--accent); text-decoration: none; font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem;">
-      &larr; Back to Overview
-    </a>
-  </div>
-
-</div>
+</footer>
+</body>
+</html>

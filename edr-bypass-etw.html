@@ -1,120 +1,135 @@
-<div id="main-content">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why attackers kill ETW first · edr.sg</title>
+<meta name="description" content="Five ETW-silencing tricks used in modern crimeware, and the strategy that turns log tampering into a definitive attack signal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  .rel { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .rel::before { content: ""; width: 8px; height: 8px; border-radius: var(--r-full); background: var(--lvl); }
+  .high { --lvl: var(--olive); } .med { --lvl: var(--accent); } .low { --lvl: var(--rust); }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+      <li><a href="ngo-threats.html">NGO dossier</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+        <li><a href="ngo-threats.html">NGO dossier</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+</div>
+<main class="article" id="content">
+  <header class="article-head">
+    <p class="meta">Technical brief · Detection engineering · Aug 2026</p>
+    <h1>Why attackers kill ETW before they do anything else.</h1>
+    <p class="standfirst">Event Tracing for Windows is the most powerful telemetry source on a Windows endpoint. Which is exactly why attackers disable it first.</p>
+  </header>
 
-  <!-- Back link -->
-  <div style="margin-bottom: 2rem;">
-    <a href="#home" style="color: var(--accent); text-decoration: none; font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem;">
-      &larr; Back to Overview
-    </a>
-  </div>
+  <article class="prose">
+    <h2>What ETW is and why it matters</h2>
+    <p>Event Tracing for Windows (ETW) is a kernel-level tracing framework built into Windows. It provides structured telemetry from the operating system itself: process creation, DLL loads, network connections, file system operations, registry changes, and much more. Sysmon, Windows Defender and most commercial EDR products consume ETW sessions under the hood.</p>
+    <p>That dependency is the problem. If an attacker can silence or distort an ETW provider, they can operate with reduced visibility, even on an endpoint that looks fully instrumented from the outside.</p>
 
-  <!-- Article header -->
-  <div style="margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(220,38,38,0.15);">
-    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
-      <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em;">detection-engineering</span>
-      <span style="color: #7c6868; font-size: 0.85rem; font-family: var(--font-mono);">Aug 2026</span>
-    </div>
-    <h1 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800; line-height: 1.2; color: #fff; margin-bottom: 1rem;">
-      Why Attackers Kill ETW Before They Do Anything Else
-    </h1>
-    <p style="color: #a07878; font-size: 1rem; line-height: 1.7; max-width: 680px;">
-      Event Tracing for Windows is the most powerful telemetry source on a Windows endpoint. Which is exactly why attackers disable it first.
-    </p>
-  </div>
+    <h2>The five ETW-silencing techniques</h2>
+<pre><span class="c"># Technique 1: stop the trace session directly</span>
+sc stop Sysmon64
 
-  <!-- Article body -->
-  <div style="max-width: 720px; color: #c8b4b4; font-size: 0.98rem; line-height: 1.8;">
+<span class="c"># Technique 2: patch the EtwpNotifyConsumer function in ntdll</span>
+WriteProcessMemory() → NOP the dispatch path</pre>
 
-    <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #fff; margin: 2rem 0 0.75rem;">What ETW Is and Why It Matters</h2>
-    <p style="margin-bottom: 1.25rem;">
-      Event Tracing for Windows (ETW) is a kernel-level tracing framework built into Windows. It provides structured telemetry from the operating system itself: process creation, DLL loads, network connections, file system operations, registry changes, and much more. Sysmon, Windows Defender, and most commercial EDR products consume ETW sessions under the hood.
-    </p>
-    <p style="margin-bottom: 1.25rem;">
-      That dependency is the problem. If an attacker can silence or distort an ETW provider, they can operate with reduced visibility — even on an endpoint that looks fully instrumented from the outside.
-    </p>
+    <ol class="ruled numbered">
+      <li>
+        <h3>Stopping the trace session</h3>
+        <p>The simplest method: stop Sysmon, Windows Defender or any ETW consumer as a service. Detectable via Service Control Manager events (7036) and Sysmon's own process-terminated log, if you still have a copy.</p>
+      </li>
+      <li>
+        <h3>Patching ntdll in-process</h3>
+        <p>Malware patches the ETW dispatch path inside <code>ntdll.dll</code> within the target process. The kernel still raises events, but the consuming thread never sees them. Ghidra's EvasionScan script detects the stub pattern statically; Frida catches it dynamically.</p>
+      </li>
+      <li>
+        <h3>NtTraceControl / EtwpStopTrace</h3>
+        <p>A direct syscall to the kernel's trace control interface, bypassing ntdll entirely. It evades userland hooks. It needs elevated privileges but not SYSTEM: a medium-integrity process with SeDebugPrivilege is enough.</p>
+      </li>
+      <li>
+        <h3>Stomping the session buffer</h3>
+        <p>Corrupt the <code>EVENT_TRACE_LOGFILE</code> buffer so consumers receive garbage instead of valid events. Logs appear active; events are unreadable. Detection: checksum comparison across consecutive reads.</p>
+      </li>
+      <li>
+        <h3>Provider deregistration injection</h3>
+        <p>Inject into a process that holds an ETW provider handle and call <code>EtwUnregister()</code> on the provider's REGHANDLE. That provider goes silent for the lifetime of that process.</p>
+      </li>
+    </ol>
 
-    <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #fff; margin: 2rem 0 0.75rem;">The Five ETW-Silencing Techniques</h2>
-
-    <div style="background: rgba(10,3,3,0.7); border: 1px solid rgba(220,38,38,0.15); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; font-family: var(--font-mono); font-size: 0.82rem; color: #ff2d2d;">
-      <div style="color: #7c6868; margin-bottom: 0.5rem;"># Technique 1 — Stop the trace session directly</div>
-      <div>sc stop Sysmon64</div>
-      <div style="color: #7c6868; margin-top: 0.75rem; margin-bottom: 0.5rem;"># Technique 2 — Patch the EtwpNotifyConsumer function in ntdll</div>
-      <div>WriteProcessMemory() → NOP the dispatch path</div>
-    </div>
-
-    <p style="margin-bottom: 1.25rem;"><strong style="color: #fff;">1. Stopping the trace session.</strong> The simplest method: stop Sysmon, Windows Defender, or any ETW consumer as a service. Detectable via Service Control Manager events (7036) and Sysmon's own process-terminated log — if you still have a copy.</p>
-
-    <p style="margin-bottom: 1.25rem;"><strong style="color: #fff;">2. Patching ntdll in-process.</strong> Malware patches the ETW dispatch path inside ntdll.dll within the target process. The kernel still raises events, but the consuming thread never sees them. Ghidra's EvasionScan script detects the stub pattern statically; Frida catches it dynamically.</p>
-
-    <p style="margin-bottom: 1.25rem;"><strong style="color: #fff;">3. NtTraceControl / EtwpStopTrace.</strong> Direct syscall to the kernel's trace control interface, bypassing ntdll entirely. Evades userland hooks. Requires elevated privileges but not SYSTEM — a medium-integrity process with SeDebugPrivilege is enough.</p>
-
-    <p style="margin-bottom: 1.25rem;"><strong style="color: #fff;">4. Stomping the session buffer.</strong> Corrupt the EVENT_TRACE_LOGFILE buffer so consumers receive garbage instead of valid events. Logs appear active; events are unreadable. Detection: checksum comparison across consecutive reads.</p>
-
-    <p style="margin-bottom: 1.25rem;"><strong style="color: #fff;">5. Provider deregistration injection.</strong> Inject into a process that holds an ETW provider handle and call <code style="background: rgba(220,38,38,0.1); padding: 0.1rem 0.35rem; border-radius: 3px; color: #ff6b6b; font-size: 0.85em;">EtwUnregister()</code> on the provider's REGHANDLE. That provider goes silent for the lifetime of that process.</p>
-
-    <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #fff; margin: 2rem 0 0.75rem;">What Actually Detects These</h2>
-
-    <div style="overflow-x: auto; margin-bottom: 1.5rem;">
-      <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
-        <thead>
-          <tr style="border-bottom: 1px solid rgba(220,38,38,0.25);">
-            <th style="text-align: left; padding: 0.6rem 1rem; font-family: var(--font-heading); color: #fff; font-weight: 700;">Technique</th>
-            <th style="text-align: left; padding: 0.6rem 1rem; font-family: var(--font-heading); color: #fff; font-weight: 700;">Detection Source</th>
-            <th style="text-align: left; padding: 0.6rem 1rem; font-family: var(--font-heading); color: #fff; font-weight: 700;">Reliability</th>
-          </tr>
-        </thead>
+    <h2>What actually detects these</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Technique</th><th scope="col">Detection source</th><th scope="col">Reliability</th></tr></thead>
         <tbody>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">Stop service</td>
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">SCM event 7036, WMI</td>
-            <td style="padding: 0.6rem 1rem; color: #10b981;">High</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">ntdll patch</td>
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">Ghidra EvasionScan, Frida hook</td>
-            <td style="padding: 0.6rem 1rem; color: #f59e0b;">Medium</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">NtTraceControl syscall</td>
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">ETW-Ti, kernel audit</td>
-            <td style="padding: 0.6rem 1rem; color: #f59e0b;">Medium</td>
-          </tr>
-          <tr style="border-bottom: 1px solid rgba(255,255,255,0.04);">
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">Buffer stomp</td>
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">Custom consumer checksum</td>
-            <td style="padding: 0.6rem 1rem; color: #ef4444;">Low (rarely implemented)</td>
-          </tr>
-          <tr>
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">Provider deregistration</td>
-            <td style="padding: 0.6rem 1rem; color: #c8b4b4;">ETW session heartbeat diff</td>
-            <td style="padding: 0.6rem 1rem; color: #ef4444;">Low (rarely implemented)</td>
-          </tr>
+          <tr><td>Stop service</td><td>SCM event 7036, WMI</td><td><span class="rel high">High</span></td></tr>
+          <tr><td>ntdll patch</td><td>Ghidra EvasionScan, Frida hook</td><td><span class="rel med">Medium</span></td></tr>
+          <tr><td>NtTraceControl syscall</td><td>ETW-Ti, kernel audit</td><td><span class="rel med">Medium</span></td></tr>
+          <tr><td>Buffer stomp</td><td>Custom consumer checksum</td><td><span class="rel low">Low (rarely implemented)</span></td></tr>
+          <tr><td>Provider deregistration</td><td>ETW session heartbeat diff</td><td><span class="rel low">Low (rarely implemented)</span></td></tr>
         </tbody>
       </table>
     </div>
 
-    <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #fff; margin: 2rem 0 0.75rem;">Defensive Posture</h2>
+    <h2>The strategy: make the silence the signal</h2>
+    <p>Hardening the logs harder is a losing race. A capable intruder will stop Sysmon, auditd or the native event log sooner or later. Plan for that moment instead of hoping it never comes, and do it without paying for a driver arms race.</p>
+    <ul class="panels">
+      <li>
+        <h3>Assume the logs will go dark.</h3>
+        <p>Native logging is the first thing an intruder switches off, because every defender relies on it. Any design that only works while the logs are running is a design that fails exactly when it matters.</p>
+      </li>
+      <li>
+        <h3>Turn the attacker's first move into your clearest alarm.</h3>
+        <p>Legitimate software has no reason to silence the system's own audit trail. So the act of tampering is not noise to filter; it is a definitive attack signal. The weakness becomes the tripwire: the moment someone reaches for the off switch, they have announced themselves.</p>
+      </li>
+      <li>
+        <h3>Sensors that move, guard and restore.</h3>
+        <p>Our Moving Target Sensors keep an independent, tamper-protected copy of the event trail out of the attacker's line of sight. They raise the alarm when the native logs are stopped or altered, and restore what was removed, so the evidence survives the attempt to erase it.</p>
+      </li>
+      <li>
+        <h3>Build on what doesn't change, and stop paying for what does.</h3>
+        <p>A proprietary kernel driver has to be rewritten every time the operating system moves, and a bad update can blue-screen a whole fleet. Behind every licence fee sits a team of engineers chasing those OS changes, and you pay for them, year after year. The native audit trail (ETW, auditd, macOS Endpoint Security) is maintained by the OS vendor itself and barely changes from one release to the next. Build on that foundation and the upkeep cost largely disappears from your bill.</p>
+      </li>
+    </ul>
 
-    <p style="margin-bottom: 1rem;">Three controls that actually move the needle:</p>
-
-    <ol style="padding-left: 1.5rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-      <li><strong style="color: #fff;">Run a secondary ETW consumer on a separate process.</strong> If your primary consumer is silenced, a second consumer on a separate session still sees events. Attackers rarely know to kill both unless they've done recon on your stack.</li>
-      <li><strong style="color: #fff;">Alert on session gap — not just session stop.</strong> A session that disappears is obvious. A session that silently stops producing events is not. Set a heartbeat: if the expected event rate drops below threshold for 60 seconds, that's an incident.</li>
-      <li><strong style="color: #fff;">Protect Sysmon with a WFP driver or minifilter.</strong> Stops service-stop without admin access. Doesn't stop kernel-level attacks, but raises the privilege bar significantly.</li>
-    </ol>
-
-    <div style="background: rgba(10,3,3,0.6); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin-bottom: 2rem;">
-      <p style="color: #c8b4b4; font-size: 0.9rem; margin: 0; line-height: 1.6;">
-        <strong style="color: #fff;">The honest summary:</strong> ETW silencing is not exotic. It shows up in commodity crimeware, not just nation-state toolkits. If your detection stack relies on a single ETW session with no heartbeat monitoring, assume the gap exists and plan accordingly.
-      </p>
+    <div class="summary">
+      <p><strong>The honest summary:</strong> ETW silencing is not exotic. It shows up in commodity crimeware, not just nation-state toolkits. Don't build a stack that hopes the logs stay on. Build one where switching them off is the loudest thing an intruder can do.</p>
     </div>
-
+    <p><a class="btn btn-outline" href="advisories.html">← All advisories</a></p>
+</article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories.html">Advisories</a><a href="edr-bypass-etw.html">ETW brief</a><a href="ngo-threats.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="index.html#architecture">Architecture</a><a href="index.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about.html">The architect</a></div>
+    </div>
+    <p class="legal">© 2026 edr.sg</p>
   </div>
-
-  <!-- Back link bottom -->
-  <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(220,38,38,0.1);">
-    <a href="#home" style="color: var(--accent); text-decoration: none; font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem;">
-      &larr; Back to Overview
-    </a>
-  </div>
-
-</div>
+</footer>
+</body>
+</html>

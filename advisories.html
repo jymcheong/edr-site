@@ -1,43 +1,89 @@
-<div id="main-content">
-  <h1 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 700; margin-bottom: 2rem; color: #fff;">
-    Field Notes
-  </h1>
-
-  <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-
-    <!-- Note 1 -->
-    <a href="#edr-bypass-etw"
-       style="display: block; background: rgba(30,8,8,0.45); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; transition: border-color 0.2s ease, background 0.2s ease; text-decoration: none; cursor: pointer;"
-       onmouseover="this.style.borderColor='rgba(255,45,45,0.45)';this.style.background='rgba(45,10,10,0.6)'"
-       onmouseout="this.style.borderColor='rgba(255,255,255,0.05)';this.style.background='rgba(30,8,8,0.45)'">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
-        <span style="font-size: 0.8rem; color: var(--accent); font-family: var(--font-heading); text-transform: uppercase; font-weight: 600;">detection-engineering</span>
-        <span style="font-size: 0.8rem; color: #7c6868;">Aug 2026</span>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-size: 1.35rem; margin-bottom: 0.75rem; color: #fff;">
-        Why Attackers Kill ETW Before They Do Anything Else
-      </h2>
-      <p style="color: #a07878; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
-        Event Tracing for Windows is the single most powerful telemetry source on a Windows endpoint. A breakdown of five ETW-silencing tricks and practical ways to catch them.
-      </p>
-      <span style="color: var(--accent); font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem;">
-        Read Note &rarr;
-      </span>
-    </a>
-
-    <!-- Note 2 -->
-    <div style="background: rgba(20,5,5,0.3); border: 1px dashed rgba(255,255,255,0.08); padding: 1.5rem; border-radius: 8px;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
-        <span style="font-size: 0.8rem; color: #7c6868; font-family: var(--font-heading); text-transform: uppercase; font-weight: 600;">active-defense</span>
-        <span style="font-size: 0.8rem; color: #7c6868;">In Progress</span>
-      </div>
-      <h2 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem; color: #888;">
-        Decoy Networks for Small Teams: Low Cost, Zero Noise
-      </h2>
-      <p style="color: #666; font-size: 0.9rem; line-height: 1.5; margin: 0;">
-        Setting up high-fidelity traps without blowing budgets or drowning in false alarms.
-      </p>
-    </div>
-
-  </div>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advisories · edr.sg</title>
+<meta name="description" content="Field notes on endpoint defense, detection engineering and active defense from edr.sg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  .note { display: grid; grid-template-columns: 180px 1fr auto; gap: 12px 32px; align-items: start; padding: 32px 0; }
+  .note .when { font-family: var(--mono); font-size: 13px; color: var(--ash); padding-top: 6px; }
+  .note .when b { display: block; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+  .note h3 { font-weight: 600; font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 10px; }
+  .note h3 a { text-decoration: none; }
+  .note h3 a:hover { color: var(--accent); }
+  .note p { margin: 0; max-width: 60ch; }
+  .note .go { align-self: center; width: 48px; height: 48px; border-radius: var(--r-full); border: 1px solid var(--edge); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); font-size: 17px; }
+  .note .go:hover { border-color: var(--accent); color: var(--accent); }
+  .note.pending h3 { color: var(--soft); }
+  .note .status { align-self: center; font-family: var(--mono); font-size: 13px; color: var(--ash); border: 1px dashed var(--edge); border-radius: var(--r-full); padding: 6px 12px; white-space: nowrap; }
+  @media (max-width: 860px) { .note { grid-template-columns: 1fr; } .note .go, .note .status { justify-self: start; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+      <li><a href="ngo-threats.html">NGO dossier</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+        <li><a href="ngo-threats.html">NGO dossier</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
 </div>
+<main class="article" id="content" style="max-width:960px">
+  <header class="article-head">
+    <p class="meta">Field notes</p>
+    <h1>Advisories.</h1>
+    <p class="standfirst">Concrete guidance on what to deploy, how to configure it, what it misses, and what to do about the gaps.</p>
+  </header>
+
+  <section class="prose" aria-label="All advisories">
+    <ul class="ruled">
+      <li class="note">
+        <div class="when"><b>Detection engineering</b>Aug 2026</div>
+        <div>
+          <h3><a href="edr-bypass-etw.html">Why attackers kill ETW before they do anything else.</a></h3>
+          <p>Event Tracing for Windows is the single most powerful telemetry source on a Windows endpoint. Five ETW-silencing tricks, and the strategy that turns log tampering into a definitive attack signal.</p>
+        </div>
+        <a class="go" href="edr-bypass-etw.html" aria-label="Read: Why attackers kill ETW">→</a>
+      </li>
+      <li class="note pending">
+        <div class="when"><b>Active defense</b>In progress</div>
+        <div>
+          <h3>Decoy networks for small teams: low cost, zero noise.</h3>
+          <p>Setting up high-fidelity traps without blowing budgets or drowning in false alarms.</p>
+        </div>
+        <span class="status">Coming soon</span>
+      </li>
+    </ul>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories.html">Advisories</a><a href="edr-bypass-etw.html">ETW brief</a><a href="ngo-threats.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="index.html#architecture">Architecture</a><a href="index.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about.html">The architect</a></div>
+    </div>
+    <p class="legal">© 2026 edr.sg</p>
+  </div>
+</footer>
+</body>
+</html>
