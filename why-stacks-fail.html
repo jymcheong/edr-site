@@ -8,11 +8,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="v3.css">
+<link rel="stylesheet" href="v3.css?v=20261112b">
 <style>
   .kicker { color: var(--accent); font-family: var(--font-mono, monospace); font-size: 13px; margin-bottom: 8px; }
-  .takeaway { background: var(--surface); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 0 var(--r-sm) var(--r-sm) 0; margin: 24px 0; }
+  .takeaway { background: var(--surface); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
   .takeaway p { margin: 0; color: var(--ink); }
+  .prose .ruled { margin: 32px 0 36px; }
+  .prose .ruled > li { padding: 18px 0; line-height: 1.65; }
+  .prose .ruled + p { margin-top: 28px; }
+  @media (max-width: 860px) {
+    .prose .ruled { margin: 28px 0 32px; }
+    .prose .ruled > li { padding: 16px 0; }
+    .prose .ruled + p { margin-top: 26px; }
+  }
 </style>
 </head>
 <body>
