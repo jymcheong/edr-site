@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Traditional Security Stacks Fail in the Agentic Era · edr.sg</title>
+<meta name="description" content="Collecting low-security-value events wore out human analysts. Extending that habit into the agentic era burns tokens and money at scale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  .kicker { color: var(--accent); font-family: var(--font-mono, monospace); font-size: 13px; margin-bottom: 8px; }
+  .takeaway { background: var(--surface); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 0 var(--r-sm) var(--r-sm) 0; margin: 24px 0; }
+  .takeaway p { margin: 0; color: var(--ink); }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="home-v3.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="advisories-v3.html" aria-current="page">Advisories</a></li>
+      <li><a href="dossier-ngo-v3.html">NGO dossier</a></li>
+      <li><a href="about-v3.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="home-v3.html">Home</a></li>
+        <li><a href="advisories-v3.html" aria-current="page">Advisories</a></li>
+        <li><a href="dossier-ngo-v3.html">NGO dossier</a></li>
+        <li><a href="about-v3.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+</div>
+<main class="article" id="content">
+  <header class="article-head">
+    <p class="meta">Perspectives · Active Defense & Strategy · Nov 2026</p>
+    <h1>Why Traditional Security Stacks Fail in the Agentic Era</h1>
+    <p class="standfirst">Collecting low-security-value events at scale wore out human analysts. Extending that habit into the agentic era burns tokens and money at scale.</p>
+  </header>
+
+  <article class="prose">
+    <div class="takeaway">
+      <p>With offensive AI cheap and automated, tipping the advantage takes more than clichés like "Use AI to fight AI."</p>
+    </div>
+
+    <h2>1. The Ingestion Trap</h2>
+    <p>For twenty years, enterprise security ran on one bad habit: collect every mundane log, dump it into a data lake, and hope for visibility.</p>
+    <p>Deciding upfront which event carries true security value is hard engineering. The easy way out was simple: collect everything and charge by ingestion volume. That shortcut became a self-perpetuating business model. Vendors sell more cloud storage, and consultants sell endless rule packs.</p>
+    <p>Defenders harvest millions of routine process starts and network heartbeats. High-value signals vanish in the noise. Human analysts burn out closing false alarms.</p>
+    <p>Detection "Engineering" devolved into chasing offensive techniques. Teams write fragile signatures for endless CVEs, while attackers bypass them by tweaking a single execution flag.</p>
+
+    <!-- Editorial Illustration: The Token Furnace -->
+    <figure style="margin: 36px 0; text-align: center;">
+      <img src="token-furnace.jpg" alt="Editorial Illustration: The Token Furnace & Economic Asymmetry in Cyber Defense" style="width: 100%; max-width: 520px; height: auto; border-radius: 14px; border: 1px solid var(--hairline); box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: block; margin: 0 auto;" />
+    </figure>
+
+    <h2>2. Burning Tokens on Noise</h2>
+    <p>The old playbook was simple: hire more human analysts to clear the noise.</p>
+    <p>Then came the AI wave. Organizations thought they could automate the grind by plugging Large Language Models into their legacy data lakes.</p>
+    <p>The reality is worse: feeding uncurated telemetry into an LLM does not create intelligence. It automates alert fatigue. Shoveling millions of noisy logs into LLM context windows burns tokens at such a massive scale that the AI bill ends up costing more than paying human salaries.</p>
+    
+    <ul class="ruled">
+      <li><strong>Offensive AI is cheap:</strong> Attackers run autonomous scripts to probe perimeters and adapt payloads for pennies.</li>
+      <li><strong>Defensive brute force is ruinous:</strong> Buying more inference tokens to read bad telemetry will never outpace an automated adversary.</li>
+    </ul>
+
+    <p>Unfortunately, there are no longer needles in the haystack because evading and disarming COTS sensors has become commonplace. Attackers blind off-the-shelf agents, abuse legitimate credentials, and blend completely into normal traffic. Defense requires shifting to High Security Value Telemetry with AI assist, rather than hoarding routine logs.</p>
+
+    <h2>3. The Broken Network Foundation</h2>
+    <p>Most enterprise networks remain flat and permissive. Workloads, developer laptops, and internal servers share open routes, shielded only by perimeter assumptions.</p>
+    <p>In the Agentic Persistent Threat era, automated intrusions move laterally at the speed of inference. A compromised edge device or developer laptop gives an agent an immediate runway.</p>
+    <p>Modern defense breaks down into two primary entry points:</p>
+    <ol class="ruled numbered">
+      <li>
+        <h3>Edge appliance and perimeter service exploitation</h3>
+        <p>Firewalls, VPN gateways, and edge proxies are targeted first. Once breached, they provide an unobstructed entry into internal subnets.</p>
+      </li>
+      <li>
+        <h3>Developer workstation and client-side supply-chain compromise</h3>
+        <p>Endpoints holding credentials, private keys, and build pipelines become initial pivot points.</p>
+      </li>
+    </ol>
+
+    <p>Fixing this broken foundation requires abandoning the illusion of perimeter firewalls and exposed VPN gateways. In our companion piece, <a href="network-segmentation.html"><strong>Micro-Segmentation &amp; Inevitable Paths</strong></a>, we break down how to systematically isolate services and endpoints, turning an attacker's mandatory reconnaissance into an inescapable tripwire.</p>
+
+    <h2>The Inevitable Path (必经之路)</h2>
+    <p>Instead of boiling the ocean with passive logs, defense begins by understanding the adversary's Inevitable Path: the non-negotiable actions an attacker must take to survive and advance.</p>
+    <p>Take a concrete example: choosing native telemetry like auditd and Eventlog is strategic for zero cost and universal compatibility. More importantly, upon gaining privilege escalation, an attacker will almost certainly try to disarm or silence them to avoid detection. That predictable step is their Inevitable Path. The moment an intruder reaches to blind the sensor, their evasion becomes the definitive tripwire that stops them cold.</p>
+
+    <h2>4. Twenty Years on the Frontlines</h2>
+    <p>I spent over 20 years in IT and defense operations:</p>
+    <ul class="ruled">
+      <li>Saw to it that Singapore's Ministry of Home Affairs (MHA) first Cyber Security Center was fit for mission operations.</li>
+      <li>Served as the technical driver delivering ST Engineering’s first enterprise-wide SOC end to end, from tender specifications and vendor selection to tech stack testing and initial operationalization.</li>
+      <li>Transferred tacit operational knowledge to scale the team, then led Test & Evaluation (T&E) and applied research at our corporate joint lab with the Singapore University of Technology and Design (SUTD).</li>
+    </ul>
+
+    <h2>5. Eating My Own Pudding</h2>
+    <p>An old dog like me kept up with the agentic AI wave by engineering what legacy tools refused to build: custom sensors for Linux, Windows, and macOS, alongside autonomous cyber deception and an agentic SOC built from scratch.</p>
+    <p>Today, I eat my own pudding. My home lab and edge nodes are defended around the clock by this exact agentic SOC. By pairing High Security Value Telemetry with AI assist, it delivers compliance support, protection, and detection all in one platform.</p>
+    <p>You do not need a twenty-person security team or a Fortune 500 budget to defend against automated AI agents. Small networks and lean teams can achieve enterprise-grade active defense on their own terms.</p>
+
+    <div style="background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-lg, 14px); padding: 26px 22px; margin-top: 48px;">
+      <p class="kicker">ACTIVE DEFENSE SERIES · TRACK 1</p>
+      <h3 style="font-size: 21px; font-weight: 700; color: var(--ink); margin-bottom: 10px;">Part 1: Micro-Segmentation &amp; Inevitable Paths</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: var(--body); margin-bottom: 16px;">Leaving open ports to the internet invites global attacks. See how dual-zone micro-isolation cloaks services, protects endpoints without user friction, and floods the network with bespoke deception.</p>
+      <a href="network-segmentation.html" class="btn btn-primary" style="display: inline-block;">Read Part 1: The Terrain &rarr;</a>
+    </div>
+  </article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="home-v3.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories-v3.html">Advisories</a><a href="brief-etw-v3.html">ETW brief</a><a href="dossier-ngo-v3.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="home-v3.html#architecture">Architecture</a><a href="home-v3.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about-v3.html">The architect</a></div>
+    </div>
+    <p class="legal">© 2026 edr.sg</p>
+  </div>
+</footer>
+</body>
+</html>

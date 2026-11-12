@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1200" width="800" height="1200">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap');
+      text { font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+      .display { font-family: 'Archivo', sans-serif; font-weight: 700; }
+    </style>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#181713"/>
+      <stop offset="100%" stop-color="#100f0c"/>
+    </linearGradient>
+    <linearGradient id="before-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a1816"/>
+      <stop offset="100%" stop-color="#181613"/>
+    </linearGradient>
+    <linearGradient id="after-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#261e12"/>
+      <stop offset="100%" stop-color="#181613"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="1200" fill="url(#bg-grad)"/>
+
+  <!-- Top Decorative Header Strip -->
+  <rect x="0" y="0" width="800" height="4" fill="#e8a33d"/>
+
+  <!-- Header -->
+  <g transform="translate(48, 56)">
+    <text x="0" y="0" fill="#e8a33d" class="mono" font-size="13" font-weight="600" letter-spacing="1.5">CYBERSNIPER ACTIVE DEFENSE · TERRAIN</text>
+    <text x="0" y="34" fill="#f5f0e6" class="display" font-size="30" letter-spacing="-0.5">Network Segmentation: Before vs After</text>
+    <text x="0" y="60" fill="#a8a193" font-size="15">Why traditional VPN perimeters fail and how inevitable paths stop lateral attacks</text>
+  </g>
+
+  <!-- ==================== PANEL 1: BEFORE ==================== -->
+  <g transform="translate(48, 145)" filter="url(#shadow)">
+    <!-- Card Box -->
+    <rect width="704" height="460" rx="14" fill="url(#before-grad)" stroke="#45231c" stroke-width="1.5"/>
+
+    <!-- Badge -->
+    <rect x="24" y="24" width="180" height="26" rx="4" fill="#b4553f"/>
+    <text x="114" y="41" fill="#ffffff" class="mono" font-size="11" font-weight="600" text-anchor="middle" letter-spacing="1">BEFORE: THE VPN ILLUSION</text>
+
+    <!-- Subtitle -->
+    <text x="24" y="78" fill="#f5f0e6" class="display" font-size="20">Exposed Gateway &amp; Open Lateral Highway</text>
+
+    <!-- Visual Diagram Area Inside Before -->
+    <g transform="translate(24, 96)">
+      <rect width="656" height="186" rx="8" fill="#0d0c0a" stroke="#2e2724" stroke-width="1"/>
+      
+      <!-- Attacker / Internet Scanners -->
+      <g transform="translate(20, 24)">
+        <rect width="130" height="54" rx="6" fill="#1e1b18" stroke="#542e26" stroke-width="1"/>
+        <text x="65" y="25" fill="#e0624d" class="mono" font-size="11" font-weight="600" text-anchor="middle">INTERNET BOTS</text>
+        <text x="65" y="42" fill="#8c857b" font-size="11" text-anchor="middle">24/7 Port Probes</text>
+      </g>
+
+      <!-- Arrow: Bots to VPN -->
+      <path d="M 152 51 L 200 51" stroke="#e0624d" stroke-width="2" stroke-dasharray="4,4"/>
+      <polygon points="204,51 196,47 196,55" fill="#e0624d"/>
+
+      <!-- VPN Gateway Box -->
+      <g transform="translate(206, 20)">
+        <rect width="170" height="62" rx="6" fill="#2a1612" stroke="#b4553f" stroke-width="1.5"/>
+        <text x="85" y="24" fill="#ff7a66" class="mono" font-size="11" font-weight="600" text-anchor="middle">VPN GATEWAY (443)</text>
+        <text x="85" y="40" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Publicly Exposed Port</text>
+        <text x="85" y="53" fill="#e0624d" class="mono" font-size="9" text-anchor="middle">Edge Gateway Zero-Days</text>
+      </g>
+
+      <!-- Compromised Laptop -->
+      <g transform="translate(20, 106)">
+        <rect width="130" height="56" rx="6" fill="#1e1b18" stroke="#542e26" stroke-width="1"/>
+        <text x="65" y="25" fill="#ff7a66" class="mono" font-size="11" font-weight="600" text-anchor="middle">INFECTED LAPTOP</text>
+        <text x="65" y="42" fill="#8c857b" font-size="11" text-anchor="middle">Phishing / Coffee Wi-Fi</text>
+      </g>
+
+      <!-- Arrow: Laptop through VPN into Flat Subnet -->
+      <path d="M 152 134 L 380 134" stroke="#ff7a66" stroke-width="2"/>
+      <polygon points="384,134 376,130 376,138" fill="#ff7a66"/>
+      <text x="245" y="125" fill="#e0624d" class="mono" font-size="10" text-anchor="middle">All-or-Nothing Tunnel</text>
+
+      <!-- Flat Subnet Runway (Large Danger Zone) -->
+      <g transform="translate(390, 20)">
+        <rect width="246" height="142" rx="6" fill="#1f1412" stroke="#e0624d" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="123" y="24" fill="#ff7a66" class="mono" font-size="11" font-weight="600" text-anchor="middle">FLAT CORPORATE SUBNET</text>
+        
+        <!-- Internal targets reached -->
+        <rect x="16" y="38" width="100" height="36" rx="4" fill="#2d1714" stroke="#542820"/>
+        <text x="66" y="55" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Core Database</text>
+        <text x="66" y="67" fill="#ff7a66" class="mono" font-size="9" text-anchor="middle">EXPOSED</text>
+
+        <rect x="130" y="38" width="100" height="36" rx="4" fill="#2d1714" stroke="#542820"/>
+        <text x="180" y="55" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Domain Ctrl / AD</text>
+        <text x="180" y="67" fill="#ff7a66" class="mono" font-size="9" text-anchor="middle">EXPOSED</text>
+
+        <rect x="16" y="86" width="214" height="42" rx="4" fill="#2d1714" stroke="#542820"/>
+        <text x="123" y="105" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Peer Laptops &amp; Internal Servers</text>
+        <text x="123" y="120" fill="#e0624d" class="mono" font-size="10" text-anchor="middle">Lateral spread in seconds via AI scripts</text>
+      </g>
+    </g>
+
+    <!-- Bullets Below Diagram -->
+    <g transform="translate(24, 304)">
+      <circle cx="6" cy="10" r="4" fill="#b4553f"/>
+      <text x="22" y="14" fill="#f5f0e6" font-size="14" font-weight="600">Open Public Target:</text>
+      <text x="180" y="14" fill="#cfc8bb" font-size="14">Listening ports let the whole world hit your perimeter 24/7</text>
+
+      <circle cx="6" cy="42" r="4" fill="#b4553f"/>
+      <text x="22" y="46" fill="#f5f0e6" font-size="14" font-weight="600">Gateway Vulnerability:</text>
+      <text x="188" y="46" fill="#cfc8bb" font-size="14">Exploiting one VPN appliance hands attackers root boundary access</text>
+
+      <circle cx="6" cy="74" r="4" fill="#b4553f"/>
+      <text x="22" y="78" fill="#f5f0e6" font-size="14" font-weight="600">Flat Lateral Runway:</text>
+      <text x="178" y="78" fill="#cfc8bb" font-size="14">Tunnel bridges laptops to everything; user friction spurs shadow IT</text>
+    </g>
+  </g>
+
+  <!-- ==================== PANEL 2: AFTER ==================== -->
+  <g transform="translate(48, 630)" filter="url(#shadow)">
+    <!-- Card Box -->
+    <rect width="704" height="490" rx="14" fill="url(#after-grad)" stroke="#66481a" stroke-width="1.5"/>
+
+    <!-- Badge -->
+    <rect x="24" y="24" width="220" height="26" rx="4" fill="#e8a33d"/>
+    <text x="134" y="41" fill="#14130f" class="mono" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">AFTER: CYBERSNIPER ACTIVE DEFENSE</text>
+
+    <!-- Subtitle -->
+    <text x="24" y="78" fill="#f5f0e6" class="display" font-size="20">Service Cloaking &amp; Micro-Isolated Inevitable Paths</text>
+
+    <!-- Visual Diagram Area Inside After -->
+    <g transform="translate(24, 96)">
+      <rect width="656" height="206" rx="8" fill="#0d0c0a" stroke="#36291a" stroke-width="1"/>
+      
+      <!-- Attacker / Internet Scanners Hit A Wall -->
+      <g transform="translate(20, 20)">
+        <rect width="130" height="54" rx="6" fill="#1e1b18" stroke="#4a3e2b" stroke-width="1"/>
+        <text x="65" y="25" fill="#a8a193" class="mono" font-size="11" font-weight="600" text-anchor="middle">INTERNET BOTS</text>
+        <text x="65" y="42" fill="#757067" font-size="11" text-anchor="middle">Shodan / Scanners</text>
+      </g>
+
+      <!-- Blocked Arrow: Port Cloaked -->
+      <path d="M 152 47 L 210 47" stroke="#b4553f" stroke-width="2"/>
+      <line x1="216" y1="37" x2="226" y2="57" stroke="#e0624d" stroke-width="3"/>
+      <line x1="226" y1="37" x2="216" y2="57" stroke="#e0624d" stroke-width="3"/>
+      
+      <!-- Cloaked Service Box -->
+      <g transform="translate(236, 16)">
+        <rect width="180" height="62" rx="6" fill="#181d16" stroke="#4a6b47" stroke-width="1.5"/>
+        <text x="90" y="24" fill="#7d9479" class="mono" font-size="11" font-weight="700" text-anchor="middle">CLOAKED SERVICE</text>
+        <text x="90" y="40" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Zero Inbound Public Ports</text>
+        <text x="90" y="53" fill="#7d9479" class="mono" font-size="9" text-anchor="middle">100% Invisible to External Scanners</text>
+      </g>
+
+      <!-- Legit User Endpoint -->
+      <g transform="translate(20, 110)">
+        <rect width="130" height="74" rx="6" fill="#181e17" stroke="#4a6b47" stroke-width="1"/>
+        <text x="65" y="25" fill="#e8a33d" class="mono" font-size="11" font-weight="600" text-anchor="middle">CLIENT ZONE</text>
+        <text x="65" y="42" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Remote Laptop</text>
+        <text x="65" y="58" fill="#7d9479" class="mono" font-size="9" text-anchor="middle">Silent P2P Mesh</text>
+        <text x="65" y="69" fill="#7d9479" class="mono" font-size="9" text-anchor="middle">Zero User Friction</text>
+      </g>
+
+      <!-- Direct P2P tunnel to Authorized App ONLY -->
+      <path d="M 152 147 L 436 147" stroke="#e8a33d" stroke-width="2"/>
+      <polygon points="440,147 432,143 432,151" fill="#e8a33d"/>
+      <text x="290" y="139" fill="#e8a33d" class="mono" font-size="10" text-anchor="middle">Direct Scoped Access ONLY</text>
+
+      <!-- Target App -->
+      <g transform="translate(446, 126)">
+        <rect width="186" height="42" rx="6" fill="#1f1c14" stroke="#e8a33d" stroke-width="1.5"/>
+        <text x="93" y="22" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Allowed Business App</text>
+        <text x="93" y="34" fill="#e8a33d" class="mono" font-size="9" text-anchor="middle">Least-Privilege Connection</text>
+      </g>
+
+      <!-- The Inevitable Path Tripwire Box (Bottom Right) -->
+      <g transform="translate(446, 16)">
+        <rect width="186" height="88" rx="6" fill="#241910" stroke="#e8a33d" stroke-width="1.5"/>
+        <text x="93" y="22" fill="#e8a33d" class="mono" font-size="11" font-weight="700" text-anchor="middle">必经之路 TRIPWIRE</text>
+        <text x="93" y="40" fill="#f5f0e6" font-size="11" font-weight="600" text-anchor="middle">Lateral Probe Detected</text>
+        <text x="93" y="58" fill="#ff7a66" class="mono" font-size="10" text-anchor="middle">🚫 DB / Peer Routes Blocked</text>
+        <text x="93" y="74" fill="#e8a33d" class="mono" font-size="10" font-weight="600" text-anchor="middle">100% Deterministic Alarm</text>
+      </g>
+
+      <!-- Red dashed blocked probe arrow from laptop to tripwire -->
+      <path d="M 120 110 L 120 90 Q 120 70 200 70 L 440 70" stroke="#e0624d" stroke-width="1.5" stroke-dasharray="4,4" fill="none"/>
+    </g>
+
+    <!-- Bullets Below Diagram -->
+    <g transform="translate(24, 324)">
+      <circle cx="6" cy="10" r="4" fill="#e8a33d"/>
+      <text x="22" y="14" fill="#f5f0e6" font-size="14" font-weight="600">Zero Inbound Ports:</text>
+      <text x="178" y="14" fill="#cfc8bb" font-size="14">Services cloaked in private mesh; external scanners see zero open ports</text>
+
+      <circle cx="6" cy="42" r="4" fill="#e8a33d"/>
+      <text x="22" y="46" fill="#f5f0e6" font-size="14" font-weight="600">Micro-Isolated Client:</text>
+      <text x="188" y="46" fill="#cfc8bb" font-size="14">Laptop reaches only allowed app; zero visibility to peers or core DBs</text>
+
+      <circle cx="6" cy="74" r="4" fill="#e8a33d"/>
+      <text x="22" y="78" fill="#f5f0e6" font-size="14" font-weight="600">必经之路 Trap:</text>
+      <text x="148" y="78" fill="#cfc8bb" font-size="14">Lateral scanning is non-negotiable for attackers, triggering 100% true alarms</text>
+
+      <circle cx="6" cy="106" r="4" fill="#e8a33d"/>
+      <text x="22" y="110" fill="#f5f0e6" font-size="14" font-weight="600">Zero User Friction:</text>
+      <text x="174" y="110" fill="#cfc8bb" font-size="14">Persistent background mesh roams across networks without reconnects</text>
+    </g>
+  </g>
+
+  <!-- Footer Brand -->
+  <g transform="translate(48, 1160)">
+    <text x="0" y="0" fill="#8c857b" class="mono" font-size="12">edr.sg · Sovereign Active Defense · Autonomous Security</text>
+    <text x="704" y="0" fill="#e8a33d" class="mono" font-size="12" text-anchor="end">CyberSniper Architecture</text>
+  </g>
+</svg>

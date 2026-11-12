@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro-Segmentation & Inevitable Paths: Before vs After · edr.sg</title>
+<meta name="description" content="Leaving open ports to the internet invites global attacks. Traditional VPNs became the attack surface. See the before vs after shift in active defense.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  .kicker { color: var(--accent); font-family: var(--font-mono, monospace); font-size: 13px; margin-bottom: 8px; }
+  .takeaway { background: var(--surface); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 0 var(--r-sm) var(--r-sm) 0; margin: 24px 0; }
+  .takeaway p { margin: 0; color: var(--ink); }
+  
+  /* Infographic Cards */
+  .infographic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0; }
+  @media (max-width: 760px) { .infographic-grid { grid-template-columns: 1fr; } }
+  
+  .card { border-radius: var(--r-lg); padding: 24px; border: 1px solid var(--hairline); background: var(--surface); }
+  .card.before { border-color: rgba(180, 85, 63, 0.4); background: linear-gradient(180deg, rgba(180, 85, 63, 0.08) 0%, var(--surface) 100%); }
+  .card.after { border-color: rgba(232, 163, 61, 0.5); background: linear-gradient(180deg, rgba(232, 163, 61, 0.08) 0%, var(--surface) 100%); }
+  
+  .card-badge { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px; }
+  .before .card-badge { background: var(--rust); color: #fff; }
+  .after .card-badge { background: var(--accent); color: var(--on-accent); }
+  
+  .card-title { font-size: 21px; font-weight: 700; margin-bottom: 14px; color: var(--ink); }
+  .card-list { list-style: none; margin: 0; padding: 0; }
+  .card-list li { padding: 8px 0; border-top: 1px solid var(--hairline); font-size: 14.5px; line-height: 1.45; color: var(--body); }
+  .card-list li:first-child { border-top: 0; padding-top: 2px; }
+  .card-list li strong { color: var(--ink); font-weight: 600; }
+  /* Next Up CTA */
+  .next-up { background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-lg); padding: 26px 22px; margin-top: 48px; }
+  .next-up h3 { font-size: 21px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .next-up p { font-size: 15px; line-height: 1.6; color: var(--body); margin-bottom: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="home-v3.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="advisories-v3.html" aria-current="page">Advisories</a></li>
+      <li><a href="dossier-ngo-v3.html">NGO dossier</a></li>
+      <li><a href="about-v3.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="home-v3.html">Home</a></li>
+        <li><a href="advisories-v3.html" aria-current="page">Advisories</a></li>
+        <li><a href="dossier-ngo-v3.html">NGO dossier</a></li>
+        <li><a href="about-v3.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+</div>
+<main class="article" id="content">
+  <header class="article-head">
+    <p class="meta">Perspectives · Active Defense & Terrain · Nov 2026</p>
+    <h1>Micro-Segmentation & Inevitable Paths</h1>
+    <p class="standfirst">Opening ports to the public internet lets the entire world take a hit at you. Traditional VPN gateways became the primary target, then gave infected laptops an open runway. Here is the before-and-after shift.</p>
+  </header>
+
+  <article class="prose">
+    <div class="takeaway">
+      <p>Perimeter firewalls and VPN appliances are relics of a stationary era. In the automated threat era, security requires invisible services, frictionless endpoints, and turning lateral exploration into a deterministic trap.</p>
+    </div>
+
+    <!-- Illustrated Story Graphic -->
+    <figure style="margin: 32px 0; text-align: center;">
+      <img src="comic-ai-v2.jpg" alt="Illustrated Story: Why Perimeter VPNs Fail & How Micro-Segmentation Traps Lateral Attacks" style="width: 100%; max-width: 540px; height: auto; border-radius: 14px; border: 1px solid var(--hairline); box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: block; margin: 0 auto;" />
+    </figure>
+
+    <!-- BEFORE VS AFTER EXECUTIVE SNAPSHOT -->
+    <div class="infographic-grid">
+      <!-- BEFORE CARD -->
+      <div class="card before">
+        <span class="card-badge">Before: Legacy Perimeter</span>
+        <h3 class="card-title">The Flat Network & VPN Trap</h3>
+
+        <ul class="card-list">
+          <li><strong>Exposed Gateway:</strong> Public listening ports scanned by global botnets 24/7.</li>
+          <li><strong>Single Point of Failure:</strong> One gateway vulnerability breaches the entire perimeter.</li>
+          <li><strong>Flat Lateral Runway:</strong> A single infected laptop reaches all internal databases and servers.</li>
+          <li><strong>Daily User Friction:</strong> Dropped tunnels and repetitive logins drive users to shadow IT.</li>
+        </ul>
+      </div>
+
+      <!-- AFTER CARD -->
+      <div class="card after">
+        <span class="card-badge">After: CyberSniper</span>
+        <h3 class="card-title">Dual-Zone Active Defense</h3>
+
+        <ul class="card-list">
+          <li><strong>Cloaked Services:</strong> Zero inbound public ports; invisible to external scanners.</li>
+          <li><strong>No Central Concentrator:</strong> Direct peer-to-peer authenticated connections.</li>
+          <li><strong>Micro-Isolated Endpoints:</strong> Access strictly scoped to assigned apps; zero peer visibility.</li>
+          <li><strong>必经之路 Tripwires:</strong> Mandatory lateral recon triggers 100% deterministic alerts.</li>
+          <li><strong>Invisible User Experience:</strong> Silent background mesh with zero reconnect clicks.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>1. Service Level: Stop Letting the World Hit You</h2>
+    <p>Opening a public port is like standing still in a crowd while anyone throws rocks at you. Automated scanners hit every open IP within minutes of going live.</p>
+    <p>CyberSniper cloaks services completely. Inbound ports do not listen to the public internet. If an attacker cannot reach the network socket, they cannot exploit unpatched software bugs.</p>
+
+    <h2>2. Client Zone: Maximum Isolation, Zero Friction</h2>
+    <p>Security fails when it annoys users. Traditional VPN clients drop connections and force repetitive logins, so users switch them off.</p>
+    <p>CyberSniper runs quietly in the background without user prompts. An authorized laptop reaches its specific work tool, but cannot route packets to neighboring laptops, office printers, or production databases. A compromised endpoint stays locked in a padded room.</p>
+
+    <h2>3. 必经之路: The Inevitable Path Tripwire</h2>
+    <p>You cannot predict an adversary's initial entry exploit. But once they land on a compromised machine, they arrive completely blind. To survive and plan their next steps, they have no choice but to run dual reconnaissance:</p>
+
+    <ul class="ruled">
+      <li>
+        <strong>Host Reconnaissance:</strong>
+        Querying local privileges, harvesting cached credentials, cataloging installed security tools, and attempting to blind native sensors.
+      </li>
+      <li>
+        <strong>Network Reconnaissance:</strong>
+        Inspecting routing and ARP tables, scanning adjacent subnets, and probing for reachable servers or domain controllers to pivot into.
+      </li>
+    </ul>
+
+    <p>On a flat corporate network, this discovery chatter drowns in normal administrative noise. Under CyberSniper's micro-segmentation, no endpoint has any operational reason to sweep adjacent IP space or inspect defensive sensors. Because the adversary <em>must</em> recon to advance, their mandatory information gathering becomes an immediate, 100% deterministic tripwire that halts them cold.</p>
+
+    <h2>4. The Deception Minefield: Flooding the Field</h2>
+    <p>CyberSniper flips the odds by creating an overwhelming ratio of fake zones to real production. Real services remain cloaked, while the visible network is flooded with decoy environments and canary lures:</p>
+
+    <ul class="ruled">
+      <li>
+        <strong>Misleading Offensive AI:</strong>
+        Automated bots and LLM agents greedily follow open decoy paths, burning their tokens and compute in endless tar-pits while generating instant alerts.
+      </li>
+      <li>
+        <strong>Exhausting Human APTs:</strong>
+        Disciplined adversaries chase believable canary credentials and mock assets, burning their manual tradecraft without ever touching real production.
+      </li>
+    </ul>
+
+    <h2>5. The Sovereign Advantage: Adversaries Play Our Game</h2>
+    <p>For twenty years, security trapped defenders on an exhausting hamster wheel: constantly chasing new intrusion methods, writing fragile rules for every zero-day, and reacting to endless CVEs. In the automated agentic era, chasing intrusion techniques is a losing game.</p>
+    <p>CyberSniper changes the rules. We no longer chase how an attacker enters. Instead, <strong>adversaries now play our game:</strong></p>
+
+    <ul class="ruled">
+      <li><strong>Production is Invisible:</strong> Inbound ports are cloaked, leaving zero public attack surface to exploit.</li>
+      <li><strong>Endpoints are Isolated:</strong> Compromised laptops are locked in padded rooms with zero lateral reach.</li>
+      <li><strong>The Terrain is Bespoke:</strong> Defensive AI synthesizes completely unique deception for every deployment, ensuring no two networks ever share the same decoy layout or fingerprints.</li>
+    </ul>
+
+    <p>The moment an intruder lands, our terrain dictates their moves. They cannot advance without exploring, and every step they take walks straight into an AI-synthesized minefield. We stop reacting to their playbooks—they are forced to play on our board.</p>
+
+    <!-- CONTINUITY CTA: ENDPOINT VACCINATION -->
+    <div class="next-up">
+      <p class="kicker">COMING NEXT · TRACK 2</p>
+      <h3>Endpoint Vaccination: Winning Without Fighting (不战而胜)</h3>
+      <p>Controlling network terrain is only half the battle. In Part 2, we dismantle the endpoint: how vaccinating hosts tricks malware into terminating itself before running—achieving Sun Tzu's ideal of winning without fighting, completely free from the costly hamster wheel of detection engineering.</p>
+      <div style="margin-top: 16px;">
+        <span class="btn btn-primary" style="display: inline-block;">Follow the Series &rarr;</span>
+      </div>
+    </div>
+  </article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="home-v3.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories-v3.html">Advisories</a><a href="brief-etw-v3.html">ETW brief</a><a href="dossier-ngo-v3.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="home-v3.html#architecture">Architecture</a><a href="home-v3.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about-v3.html">The architect</a></div>
+    </div>
+    <p class="legal">© 2026 edr.sg</p>
+  </div>
+</footer>
+</body>
+</html>
