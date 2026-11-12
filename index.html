@@ -27,12 +27,14 @@
   .facts b { font-family: var(--display); font-weight: 700; font-size: 32px; letter-spacing: -0.02em; min-width: 4.5ch; white-space: nowrap; color: var(--ink); }
   .briefs { background: var(--band); padding: 112px 0; }
   .briefs .head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 48px; }
-  .clip { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 36px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; box-shadow: var(--shadow); }
+  .clip { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 36px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; box-shadow: var(--shadow); text-decoration: none; color: inherit; cursor: pointer; transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease; }
+  .clip:hover { border-color: var(--edge); background: #141416; }
+  .clip:hover h3 { color: var(--accent); }
+  .clip:hover .arrow { border-color: var(--accent); color: var(--accent); background: rgba(229, 169, 59, 0.08); }
   .clip .meta { color: var(--ash); margin-bottom: 14px; }
-  .clip h3 { font-weight: 600; letter-spacing: -0.015em; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.2; margin-bottom: 12px; }
-  .clip p { max-width: 56ch; }
-  .arrow { width: 52px; height: 52px; border-radius: var(--r-full); border: 1px solid var(--edge); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); font-size: 20px; }
-  .arrow:hover { border-color: var(--accent); color: var(--accent); }
+  .clip h3 { font-weight: 600; letter-spacing: -0.015em; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.2; margin-bottom: 12px; transition: color 0.15s ease; color: var(--ink); }
+  .clip p { max-width: 56ch; color: var(--muted); }
+  .arrow { width: 52px; height: 52px; border-radius: var(--r-full); border: 1px solid var(--edge); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); font-size: 20px; transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease; }
   .about { display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; }
   .about p { margin-bottom: 18px; max-width: 56ch; }
   @media (max-width: 860px) {
@@ -131,32 +133,32 @@
         <a class="btn btn-outline" href="advisories.html">All advisories</a>
       </div>
       <div style="display: grid; gap: 20px;">
-        <article class="clip">
+        <a class="clip" href="why-stacks-fail.html">
           <div>
             <p class="meta" style="color: var(--accent);">Active Defense · Perspectives · Nov 2026</p>
             <h3>Why Traditional Security Stacks Fail in the Agentic Era</h3>
             <p>Collecting low-security-value events wore out human analysts. Extending that habit into the agentic era burns tokens and money at scale.</p>
           </div>
-          <a class="arrow" href="why-stacks-fail.html" aria-label="Read Why Traditional Security Stacks Fail">→</a>
-        </article>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
 
-        <article class="clip">
+        <a class="clip" href="network-segmentation.html">
           <div>
             <p class="meta" style="color: var(--accent);">Active Defense · Track 1 (Terrain) · Nov 2026</p>
             <h3>Micro-Segmentation &amp; Inevitable Paths</h3>
             <p>Leaving open ports to the internet lets the whole world take a hit at you. How multi-zone isolation cloaks services, protects endpoints without user friction, and floods the network with bespoke deception.</p>
           </div>
-          <a class="arrow" href="network-segmentation.html" aria-label="Read Micro-Segmentation">→</a>
-        </article>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
 
-        <article class="clip">
+        <a class="clip" href="edr-bypass-etw.html">
           <div>
             <p class="meta">Technical brief · ETW defense · Aug 2026</p>
             <h3>Why attackers kill ETW before they do anything else.</h3>
             <p>Five ETW-silencing tricks used in modern crimeware, and why switching the logs off should be the loudest thing an intruder can do.</p>
           </div>
-          <a class="arrow" href="edr-bypass-etw.html" aria-label="Read the ETW brief">→</a>
-        </article>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
