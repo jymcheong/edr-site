@@ -18,7 +18,8 @@
   .case p { margin: 0; }
   .mandate { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 32px; margin-top: 56px; }
   .mandate h2 { margin-top: 0; }
-  .mandate p { color: var(--ink); font-size: clamp(18px, 2vw, 21px); line-height: 1.55; margin: 0; }
+  .mandate p { color: var(--ink); font-size: clamp(17px, 1.9vw, 20px); line-height: 1.6; margin: 0; }
+  .mandate p + p { margin-top: 16px; }
   @media (max-width: 860px) { .case { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -92,9 +93,11 @@
       </li>
     </ul>
 
-    <section class="mandate" aria-labelledby="mandate-h">
-      <h2 id="mandate-h">The edr.sg mandate</h2>
-      <p>Defense cannot remain an exclusive luxury of Fortune 500 enterprises. We build automated, zero-overhead deception and vaccination tools so resource-constrained defenders can stop automated campaigns without enterprise retainers.</p>
+    <section class="mandate" aria-labelledby="motivation-h">
+      <h2 id="motivation-h">The edr.sg motivation</h2>
+      <p>Defending non-profits is not just charity. It is our strategic wedge.</p>
+      <p>Mission teams are far more willing to consider an independent challenger. Engineering for their extreme budget constraints forced us to build an automated defense engine that operates with zero human retainers and near-zero marginal cost.</p>
+      <p>Proving high-grade protection under severe resource limits protects vital missions today. Deployed commercially to organizations with real budgets, that same cost structure delivers unbeatable margins.</p>
     </section>
 
     <p style="margin-top:40px"><a class="btn btn-outline" href="index.html#evidence">← Back to home</a></p>
