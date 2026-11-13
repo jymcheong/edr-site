@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Endpoint Vaccination: Winning Without Fighting · edr.sg</title>
+<meta name="description" content="Most malware checks whether a security analyst is watching before it acts. We plant that evidence on your machines, so the malware quits on its own. Then we make every attempt to blind your logs sound the alarm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  .kicker { color: var(--accent); font-family: var(--font-mono, monospace); font-size: 13px; margin-bottom: 8px; }
+  .takeaway { background: var(--surface); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .takeaway p { margin: 0; color: var(--ink); }
+  .prose .ruled { margin: 32px 0 36px; }
+  .prose .ruled > li { padding: 18px 0; line-height: 1.65; }
+  .prose .ruled + p { margin-top: 28px; }
+  @media (max-width: 860px) {
+    .prose .ruled { margin: 28px 0 32px; }
+    .prose .ruled > li { padding: 16px 0; }
+    .prose .ruled + p { margin-top: 26px; }
+  }
+  
+  /* Infographic Cards */
+  .infographic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0; }
+  @media (max-width: 760px) { .infographic-grid { grid-template-columns: 1fr; } }
+  
+  .card { border-radius: var(--r-lg); padding: 24px; border: 1px solid var(--hairline); background: var(--surface); }
+  .card.before { border-color: rgba(180, 85, 63, 0.4); background: linear-gradient(180deg, rgba(180, 85, 63, 0.08) 0%, var(--surface) 100%); }
+  .card.after { border-color: rgba(232, 163, 61, 0.5); background: linear-gradient(180deg, rgba(232, 163, 61, 0.08) 0%, var(--surface) 100%); }
+  
+  .card-badge { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px; }
+  .before .card-badge { background: var(--rust); color: #fff; }
+  .after .card-badge { background: var(--accent); color: var(--on-accent); }
+  
+  .card-title { font-size: 21px; font-weight: 700; margin-bottom: 14px; color: var(--ink); }
+  .card-list { list-style: none; margin: 0; padding: 0; }
+  .card-list li { padding: 8px 0; border-top: 1px solid var(--hairline); font-size: 14.5px; line-height: 1.45; color: var(--body); }
+  .card-list li:first-child { border-top: 0; padding-top: 2px; }
+  .card-list li strong { color: var(--ink); font-weight: 600; }
+  /* Next Up CTA */
+  .next-up { background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-lg); padding: 26px 22px; margin-top: 48px; }
+  .next-up h3 { font-size: 21px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .next-up p { font-size: 15px; line-height: 1.6; color: var(--body); margin-bottom: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+      <li><a href="ngo-threats.html">NGO dossier</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+        <li><a href="ngo-threats.html">NGO dossier</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+</div>
+<main class="article" id="content">
+  <header class="article-head">
+    <p class="meta">Perspectives · Host Defense &amp; Endpoint Vaccination · Track 2 · Nov 2026</p>
+    <h1>Endpoint Vaccination: Winning Without Fighting (不战而胜)</h1>
+    <p class="standfirst">Malware authors work hard to hide their code from security researchers. We turn that habit against them, so the malware leaves on its own. And the attacker who stays has to walk a path that gives them away.</p>
+  </header>
+
+  <article class="prose">
+    <div class="infographic-grid">
+      <div class="card before">
+        <span class="card-badge">Before: Chase to Detect</span>
+        <h3 class="card-title">The Detection Hamster Wheel</h3>
+        <ul class="card-list">
+          <li><strong>Heavy agents:</strong> security software slows laptops and breaks with updates.</li>
+          <li><strong>Endless signatures:</strong> attackers change one setting and slip past.</li>
+          <li><strong>Alert flood:</strong> warnings pile up with nobody to read them.</li>
+          <li><strong>Blind spot:</strong> an attacker who silences the logs simply disappears.</li>
+        </ul>
+      </div>
+      <div class="card after">
+        <span class="card-badge">After: CyberSniper</span>
+        <h3 class="card-title">Make the Attacker Defeat Themselves</h3>
+        <ul class="card-list">
+          <li><strong>Vaccinated hosts:</strong> machines look like a researcher's lab, so cautious malware quits.</li>
+          <li><strong>Native records:</strong> the computer's own audit trail, kept at no extra cost.</li>
+          <li><strong>必经之路 tripwires:</strong> the steps an attacker cannot skip raise the alarm.</li>
+          <li><strong>Self-healing logging:</strong> silence the logs, and our guard switches them back on.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>1. The Detection Hamster Wheel</h2>
+    <p>For twenty years, endpoint security has meant one thing: install a heavy agent on every machine, watch for bad behaviour, and chase every new attack technique.</p>
+    <p>It is a race defenders cannot win. Attackers change one setting and the signature no longer matches. The agents slow down old laptops and clash with updates. The alerts need trained analysts to read them, around the clock.</p>
+    <p>A non-profit with one IT volunteer cannot run on that wheel. So we stopped asking how to catch the malware, and asked a different question: how do we get it to leave by itself?</p>
+
+    <h2>2. Malware Is Afraid of Being Watched</h2>
+    <p>Serious malware has a weak spot, and its authors built it on purpose. Before it does anything harmful, it checks whether it is sitting in a security researcher's lab. If it sees the tools of an analyst, it shuts itself down so its secrets stay hidden.</p>
+    <p>Think of a burglar who sees a police car parked outside. He does not try the door. He walks on to the next house.</p>
+    <p>Endpoint vaccination parks that police car. We place the signs of an analyst's lab on your real computers, and the malware's own caution sends it away. That is 不战而胜: winning without fighting. Nothing blocks your staff, nobody watches their screens, and your network stays exactly as it is.</p>
+
+    <!-- Editorial Illustration: Endpoint Vaccination & The Inevitable Path -->
+    <figure style="margin: 36px 0; text-align: center;">
+      <img src="comic-vaccination.jpg" alt="Illustrated Story: Endpoint Vaccination &amp; How Self-Defeating Malware Walks Away" style="width: 100%; max-width: 540px; height: auto; border-radius: 14px; border: 1px solid var(--hairline); box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: block; margin: 0 auto;" />
+    </figure>
+
+    <h2>3. The Ones Who Stay Must Walk the Inevitable Path (必经之路)</h2>
+    <p>Some attackers do not scare easily. It might be a careful human, or an AI agent that does not care whose machine it is on. They still arrive blind, and to get anywhere they must take the same three steps.</p>
+    <ul class="ruled">
+      <li>
+        <strong>Looking around:</strong>
+        In a segmented network, a laptop has no business reason to scan its neighbours. We leave decoys exactly where an explorer looks. The moment one is touched, we are alerted and the program that touched it is frozen.
+      </li>
+      <li>
+        <strong>Gaining control:</strong>
+        Taking over a machine leaves marks in its own audit trail, the native records Linux and Windows can keep at no extra cost, and that auditors already ask for.
+      </li>
+      <li>
+        <strong>Silencing the logs:</strong>
+        With control, the attacker will almost certainly try to switch off or tamper with those records to cover their tracks. Day-to-day work does not need the logs switched off, and planned maintenance is rare and known in advance. So an unexpected attempt stands out as a strong alarm, and our guard sensor switches the logging straight back on.
+      </li>
+    </ul>
+    <p>Either way, the attacker loses. The cautious ones leave without a fight. The bold ones must eventually make the moves that signal their presence. We win without ever chasing them.</p>
+
+    <div class="next-up">
+      <p class="kicker">COMING NEXT · TRACK 3</p>
+      <h3>AI Economics: Pay for the Thinking Once</h3>
+      <p>We use the best AI models once to turn hard-won security know-how into reusable skills, then run those skills every day on low-cost models. In Part 3 we show why that beats paying a monthly licence to summarise false alarms.</p>
+      <div style="margin-top: 16px;"><a href="https://www.linkedin.com/in/jymcheong/" target="_blank" rel="noopener" class="btn btn-primary" style="display: inline-block;">Follow the Series &rarr;</a></div>
+    </div>
+  </article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories.html">Advisories</a><a href="edr-bypass-etw.html">ETW brief</a><a href="ngo-threats.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="index.html#architecture">Architecture</a><a href="index.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about.html">The architect</a></div>
+    </div>
+    <p class="legal">© 2026 edr.sg</p>
+  </div>
+</footer>
+</body>
+</html>
