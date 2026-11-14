@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Interactive Walkthrough · CyberSniper by edr.sg</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css">
+<style>
+  :root {
+    --accent:          #58a6ff;
+    --accent-glow:     rgba(88, 166, 255, 0.35);
+    --btn-primary-bg:  #1f6feb;
+    --btn-primary-hov: #388bfd;
+    --btn-primary-act: #1158c7;
+    --cs-bg:           #0d1117;
+    --cs-card:         #161b22;
+    --cs-elevated:     #21262d;
+    --cs-text:         #e6edf3;
+    --cs-text-muted:   #8b949e;
+    --cs-border:       #30363d;
+    --cs-accent:       #58a6ff;
+    --cs-accent-bg:    #1c2636;
+    --cs-success:      #3fb950;
+    --cs-warning:      #e3b341;
+    --cs-error:        #f85149;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #05070a;
+    color: #f0f6fc;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap-narrow {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: max-width 0.25s ease;
+  }
+  @media (min-width: 1024px) {
+    .wrap-narrow {
+      max-width: min(1200px, 94vw);
+    }
+  }
+  @media (min-width: 1440px) {
+    .wrap-narrow {
+      max-width: min(1380px, 94vw);
+    }
+  }
+
+  /* ═════════════════════════════════════════════════
+     SCREEN 1: STANDALONE INTRO & CHOICE
+     ═════════════════════════════════════════════════ */
+  #screen-intro {
+    padding: 36px 16px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+  }
+  .intro-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 4px 12px;
+    background: rgba(88, 166, 255, 0.08);
+    border: 1px solid rgba(88, 166, 255, 0.25);
+    border-radius: var(--r-full);
+    margin-bottom: 16px;
+  }
+  .intro-title {
+    font-family: var(--display);
+    font-size: clamp(24px, 5.5vw, 42px);
+    line-height: 1.15;
+    color: #f0f6fc;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .intro-desc {
+    max-width: 620px;
+    font-size: clamp(14px, 2.2vw, 16.5px);
+    line-height: 1.5;
+    color: #8b949e;
+    margin: 0 0 32px 0;
+  }
+
+  .choice-deck {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    width: 100%;
+    max-width: 780px;
+    text-align: left;
+  }
+  @media (max-width: 640px) {
+    .choice-deck {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+
+  .choice-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 22px 20px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .choice-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+  }
+  .choice-card:active {
+    transform: scale(0.98);
+  }
+  .choice-card.greenfield {
+    border-top: 3px solid #3fb950;
+  }
+  .choice-card.brownfield {
+    border-top: 3px solid var(--accent);
+  }
+  .choice-badge {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .greenfield .choice-badge { color: #3fb950; }
+  .brownfield .choice-badge { color: var(--accent); }
+
+  .choice-heading {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    color: #f0f6fc;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .choice-body {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: #8b949e;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+  .choice-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .greenfield .choice-action { color: #3fb950; }
+  .brownfield .choice-action { color: var(--accent); }
+
+  /* ═════════════════════════════════════════════════
+     SCREEN 2: STAGED WALKTHROUGH (MESSAGE PRECEDES)
+     ═════════════════════════════════════════════════ */
+  #screen-slides {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 16px 36px;
+    animation: fadeIn 0.3s ease;
+    width: 100%;
+    min-height: calc(100vh - 40px);
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 640px) {
+    #screen-slides {
+      padding: 10px 10px 20px;
+      min-height: auto;
+      justify-content: flex-start;
+    }
+  }
+
+  .theater-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 2px;
+  }
+  .theater-mode-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: #8b949e;
+  }
+  .theater-mode-tag strong {
+    color: var(--accent);
+  }
+  .btn-reset-mode {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 4px 10px;
+    border-radius: var(--r-full);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-reset-mode:hover {
+    border-color: #f0f6fc;
+    color: #f0f6fc;
+  }
+
+  /* Stage Shell */
+  .stage-shell {
+    width: 100%;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 440px;
+  }
+
+  /* Story progress ticks */
+  .story-progress {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 8px 14px 6px;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+  }
+  .progress-tick {
+    height: 3px;
+    background: #30363d;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+  }
+  .progress-tick.done {
+    background: #3fb950;
+  }
+  .progress-tick.current {
+    background: var(--accent);
+  }
+
+  /* ── PHASE A: PRIME MESSAGE CONTAINER (Precedes proof) ── */
+  .phase-message-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 24px 32px;
+    gap: 18px;
+    flex: 1;
+    justify-content: center;
+    animation: fadeIn 0.25s ease;
+  }
+  @media (max-width: 600px) {
+    .phase-message-wrap {
+      padding: 20px 16px 24px;
+      gap: 14px;
+    }
+  }
+
+  .stage-kicker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    background: rgba(88, 166, 255, 0.08);
+    border: 1px solid rgba(88, 166, 255, 0.25);
+    padding: 5px 12px;
+    border-radius: 6px;
+    width: fit-content;
+  }
+
+  .contrast-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    .contrast-deck {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .contrast-card {
+      padding: 22px 24px;
+    }
+  }
+
+  .contrast-card {
+    border-radius: 10px;
+    padding: 16px 20px;
+    border: 1px solid #30363d;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  .contrast-card.old-card {
+    background: linear-gradient(180deg, rgba(248, 81, 73, 0.09) 0%, rgba(22, 27, 34, 0.98) 100%);
+    border-left: 5px solid var(--cs-error);
+  }
+  .contrast-card.now-card {
+    background: linear-gradient(180deg, rgba(88, 166, 255, 0.09) 0%, rgba(22, 27, 34, 0.98) 100%);
+    border-left: 5px solid var(--accent);
+  }
+
+  .contrast-badge {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .old-badge { color: var(--cs-error); }
+  .now-badge { color: var(--accent); }
+
+  .contrast-heading {
+    font-family: var(--sans);
+    font-size: clamp(1rem, 2.5vw, 1.22rem);
+    font-weight: 700;
+    color: #f0f6fc;
+    line-height: 1.25;
+    margin-bottom: 5px;
+  }
+  .contrast-body {
+    font-family: var(--sans);
+    font-size: clamp(0.85rem, 2vw, 0.92rem);
+    line-height: 1.45;
+    color: #8b949e;
+  }
+
+  /* Action Buttons */
+  .countdown-trigger-wrap {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .btn-play-proof {
+    background: var(--btn-primary-bg);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 16px 36px;
+    min-height: 56px;
+    border-radius: var(--r-full);
+    font-family: var(--sans);
+    font-size: clamp(16px, 1.35vw, 19px);
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 20px rgba(31, 111, 235, 0.45);
+    letter-spacing: -0.2px;
+  }
+  .btn-play-proof:hover {
+    background: var(--btn-primary-hov);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 26px rgba(56, 139, 253, 0.55);
+  }
+  .btn-play-proof:active {
+    transform: scale(0.98);
+    background: var(--btn-primary-act);
+  }
+
+  /* ── PHASE B: LIVE PROOF THEATER CONTAINER ── */
+  .phase-proof-wrap {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .proof-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    background: #161b22;
+    border-bottom: 1px solid #21262d;
+  }
+  .btn-reread {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 4px 10px;
+    border-radius: var(--r-full);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .btn-reread:hover {
+    color: #f0f6fc;
+    border-color: #8b949e;
+  }
+  .proof-caption {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Media Container */
+  .media-stage {
+    position: relative;
+    width: 100%;
+    background: #0d1117;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+  .media-stage img {
+    width: 100%;
+    max-height: clamp(480px, 68vh, 760px);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Unified Bottom Dock */
+  .theater-dock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    width: 100%;
+    margin-top: 18px;
+    padding: 0 4px;
+    box-sizing: border-box;
+  }
+  .btn-nav-prev {
+    background: #161b22;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    padding: 12px 22px;
+    min-height: 52px;
+    border-radius: var(--r-full);
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .btn-nav-prev:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .btn-nav-prev:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .stepper-dots {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .step-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #30363d;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .step-dot.active {
+    background: var(--accent);
+    transform: scale(1.3);
+  }
+
+  .btn-hint-next {
+    background: var(--btn-primary-bg);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 15px 30px;
+    min-height: 54px;
+    border-radius: var(--r-full);
+    font-family: var(--sans);
+    font-size: clamp(15.5px, 1.35vw, 19px);
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 20px rgba(31, 111, 235, 0.45);
+    flex-shrink: 0;
+    letter-spacing: -0.3px;
+  }
+  .btn-hint-next:hover {
+    background: var(--btn-primary-hov);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 26px rgba(56, 139, 253, 0.55);
+  }
+  .btn-hint-next:active {
+    transform: scale(0.98);
+    background: var(--btn-primary-act);
+  }
+
+  @media (max-width: 640px) {
+    .theater-dock {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 8px;
+    }
+    .stepper-dots {
+      justify-content: center;
+    }
+    .btn-hint-next {
+      font-size: 14px;
+      padding: 12px 18px;
+      min-height: 50px;
+    }
+    .btn-nav-prev {
+      font-size: 13px;
+      padding: 12px 16px;
+      min-height: 50px;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═════════════════════════════════════════════════
+     SCREEN 1: STANDALONE INTRO & REALITY CHOICE
+     ═════════════════════════════════════════════════ -->
+<section id="screen-intro" class="wrap-narrow">
+  <div class="intro-kicker">Interactive Walkthrough</div>
+  <h1 class="intro-title">Stop Managing Chaos.<br>Create the Zone First.</h1>
+  <p class="intro-desc">
+    Traditional network security forces you to buy expensive firewall boxes or spend weeks debugging routing tables. 
+    <strong>CyberSniper turns private network defense into 4 simple moves.</strong>
+    <br><br>
+    Where are you starting from?
+  </p>
+
+  <div class="choice-deck">
+    <!-- Choice A: Greenfield -->
+    <div class="choice-card greenfield" onclick="launchSlides('green')">
+      <div class="choice-badge">🌱 Clean Slate</div>
+      <div class="choice-heading">Greenfield</div>
+      <div class="choice-body">
+        Starting fresh or building cloud-native. Zero hardware firewalls, zero legacy clutter. Create private secure zones from laptop #1.
+      </div>
+      <div class="choice-action">Start Greenfield Walkthrough →</div>
+    </div>
+
+    <!-- Choice B: Brownfield -->
+    <div class="choice-card brownfield" onclick="launchSlides('brown')">
+      <div class="choice-badge">🏗️ Existing Chaos</div>
+      <div class="choice-heading">Brownfield</div>
+      <div class="choice-body">
+        Sprawling office Wi-Fi, mixed laptops, legacy LANs. Overlay private zones across your fleet without downtime or IP renumbering.
+      </div>
+      <div class="choice-action">Start Brownfield Walkthrough →</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════
+     SCREEN 2: STAGED THEATER (MESSAGE PRECEDES PROOF)
+     ═════════════════════════════════════════════════ -->
+<section id="screen-slides" class="wrap-narrow">
+
+  <!-- Top Strip -->
+  <div class="theater-header">
+    <div class="theater-mode-tag">
+      Mode: <strong id="mode-text">Greenfield</strong>
+    </div>
+    <button class="btn-reset-mode" onclick="backToIntro()">Change Starting Point ↺</button>
+  </div>
+
+  <!-- The Stage Shell -->
+  <div class="stage-shell">
+
+    <!-- Progress Indicator (Always visible across all 4 stages) -->
+    <div class="story-progress">
+      <div class="progress-tick current" id="tick-0"></div>
+      <div class="progress-tick" id="tick-1"></div>
+      <div class="progress-tick" id="tick-2"></div>
+      <div class="progress-tick" id="tick-3"></div>
+    </div>
+
+    <!-- ─────────────────────────────────────────────
+         PHASE A: THE PRIME MESSAGE (Precedes Proof)
+         ───────────────────────────────────────────── -->
+    <div class="phase-message-wrap" id="phase-message">
+      <div class="stage-kicker" id="prime-kicker">STAGE 1 OF 4 · ZONE GENESIS</div>
+
+      <div class="contrast-deck">
+        <div class="contrast-card old-card">
+          <div class="contrast-badge old-badge">
+            <span>⚠️</span> The Old Way
+          </div>
+          <div class="contrast-heading" id="prime-old-head">3 weeks waiting for hardware firewalls</div>
+          <div class="contrast-body" id="prime-old-body">
+            Manual subnetting, complex VLAN trunking, and fragile routing tables that break under pressure.
+          </div>
+        </div>
+
+        <div class="contrast-card now-card">
+          <div class="contrast-badge now-badge">
+            <span>⚡</span> CyberSniper
+          </div>
+          <div class="contrast-heading" id="prime-now-head">1 click. Live in 2 seconds</div>
+          <div class="contrast-body" id="prime-now-body">
+            Private overlay zone deployed instantly from laptop #1. Zero hardware boxes, zero routing chaos.
+          </div>
+        </div>
+      </div>
+
+      <div class="countdown-trigger-wrap">
+        <button class="btn-play-proof" id="btn-play-proof" onclick="showProofNow()">
+          <span>▶ Watch Live Proof in Action →</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────────
+         PHASE B: THE LIVE PROOF (Full Theater Canvas)
+         ───────────────────────────────────────────── -->
+    <div class="phase-proof-wrap" id="phase-proof">
+      <div class="proof-topbar">
+        <button class="btn-reread" onclick="showMessagePhase()">← Re-read Old vs Now</button>
+        <span class="proof-caption" id="proof-caption-text">● Live Pod Demonstration</span>
+      </div>
+      <div class="media-stage" onclick="advanceSlide()" title="Click to advance to next stage">
+        <img id="stage-gif" src="media/slide0_zones.gif" alt="Real CyberSniper Management UI" />
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Unified Bottom Dock -->
+  <div class="theater-dock">
+    <button class="btn-nav-prev" id="btn-prev" onclick="changeSlide(-1)" disabled>← Back</button>
+    <div class="stepper-dots">
+      <div class="step-dot active" onclick="goToSlide(0)"></div>
+      <div class="step-dot" onclick="goToSlide(1)"></div>
+      <div class="step-dot" onclick="goToSlide(2)"></div>
+      <div class="step-dot" onclick="goToSlide(3)"></div>
+    </div>
+    <button class="btn-hint-next" id="btn-hint-cta" onclick="advanceSlide()">
+      <span id="cta-label">Next: How do laptops join? →</span>
+    </button>
+  </div>
+
+</section>
+
+<script>
+  let cur = 0;
+  let mode = 'green';
+  let isProofPhase = false;
+
+  const slideGifsDesktop = [
+    'media/slide0_zones.gif',
+    'media/slide1_onboard.gif',
+    'media/slide3_posture.gif',
+    'media/slide2_topology.gif'
+  ];
+
+  const slideGifsMobile = [
+    'media/mobile/slide0_zones.gif',
+    'media/mobile/slide1_onboard.gif',
+    'media/mobile/slide3_posture.gif',
+    'media/mobile/slide2_matrix.gif'
+  ];
+
+  function getSlideGifs() {
+    return (window.innerWidth <= 640) ? slideGifsMobile : slideGifsDesktop;
+  }
+
+  const slideDeckData = {
+    green: [
+      {
+        kicker: 'STAGE 1 OF 4 · ZONE GENESIS',
+        oldHead: '3 weeks waiting for hardware firewalls',
+        oldBody: 'Manual subnetting, complex VLAN trunking, and fragile routing tables that break under pressure.',
+        nowHead: '1 click. Live in 2 seconds',
+        nowBody: 'Private overlay zone deployed instantly from laptop #1. Zero hardware boxes, zero routing chaos.',
+        caption: '● Zone Genesis · Private Overlay Creation',
+        cta: 'Next: How do 50 laptops join? →'
+      },
+      {
+        kicker: 'STAGE 2 OF 4 · FLEET ONBOARDING',
+        oldHead: '50-step PDF manuals nobody reads',
+        oldBody: 'Manual VPN client installs, certificate downloads, and endless IT helpdesk tickets for remote staff.',
+        nowHead: '1 terminal command or silent MDM',
+        nowBody: 'Solo laptop joins in 30 seconds via curl. 500 remote PCs deploy silently via Jamf / Intune without reboots.',
+        caption: '● Dual-Mode Onboarding · 1-Liner & MDM',
+        cta: 'Next: What is our fleet posture? →'
+      },
+      {
+        kicker: 'STAGE 3 OF 4 · FLEET POSTURE',
+        oldHead: '400-page vulnerability scan PDFs',
+        oldBody: 'Buried in 10,000 generic CVE alerts. Months go by before anyone patches the critical listening service.',
+        nowHead: 'Prioritize which asset to patch first',
+        nowBody: 'Ranked from P0 to P4 by listening ports and active exploits. Fix the critical exposed nodes today instead of drowning in PDF reports.',
+        caption: '● Fleet Posture · Know Which Asset to Patch First',
+        cta: 'Next: What does cross-zone reachability look like? →'
+      },
+      {
+        kicker: 'STAGE 4 OF 4 · TOPOLOGY & DECOYS',
+        oldHead: 'Stale 6-month-old asset spreadsheets',
+        oldBody: 'Zero visibility into which laptops talk to which servers. Lateral movement goes completely undetected.',
+        nowHead: 'Live reachability matrix & canary traps',
+        nowBody: 'Real-time host x zone matrix. Production links shine green; canary decoy traps trigger instant alarms.',
+        caption: '● Reachability Radar & Canary Traps',
+        cta: 'Restart Walkthrough ↺'
+      }
+    ],
+    brown: [
+      {
+        kicker: 'STAGE 1 OF 4 · ZERO-DOWNTIME OVERLAY',
+        oldHead: 'Risky IP renumbering & office downtime',
+        oldBody: 'Reconfiguring legacy switches over stressful weekends. Downtime costs and broken printers.',
+        nowHead: 'Overlay private zones across your LAN',
+        nowBody: 'Carve out isolated secure zones on top of existing Wi-Fi and office LANs in 2 seconds. Zero IP renumbering.',
+        caption: '● Zero-Downtime Overlay Genesis',
+        cta: 'Next: How to deploy to 500 PCs silently? →'
+      },
+      {
+        kicker: 'STAGE 2 OF 4 · SILENT ENTERPRISE DROP',
+        oldHead: 'Technicians walking around with USB drives',
+        oldBody: 'Scheduling invasive maintenance windows and rebooting user machines during the workday.',
+        nowHead: 'Zero-touch MDM background sync',
+        nowBody: 'Push silently via Jamf, Intune, or Datto. 500 remote PCs join the private zone without user interruption.',
+        caption: '● Silent Enterprise Fleet Sync',
+        cta: 'Next: Which PCs have unpatched CVEs? →'
+      },
+      {
+        kicker: 'STAGE 3 OF 4 · FLEET POSTURE',
+        oldHead: 'Endless alert noise while attackers move',
+        oldBody: 'Fatigued security teams filtering through false alarms while attackers exploit unmonitored ports.',
+        nowHead: 'Rank fixes by active exploit risk',
+        nowBody: 'Focus remediation where it counts. Internet-addressable nodes with active KEVs surface immediately to the top.',
+        caption: '● Fleet Posture · Active Exploit Prioritization',
+        cta: 'Next: Which PCs are talking across zones? →'
+      },
+      {
+        kicker: 'STAGE 4 OF 4 · TOPOLOGY & DECOYS',
+        oldHead: 'Forgotten shadow IT on remote Wi-Fi',
+        oldBody: 'Unmonitored dev laptops and legacy IoT devices communicating unrestricted across the flat office network.',
+        nowHead: 'Real-time reachability matrix',
+        nowBody: 'Instant host-by-zone matrix discovery. Decoy canary assets reveal unauthorized internal reconnaissance.',
+        caption: '● Host-by-Zone Reachability Matrix',
+        cta: 'Restart Walkthrough ↺'
+      }
+    ]
+  };
+
+  function launchSlides(chosenMode) {
+    mode = chosenMode;
+    document.getElementById('screen-intro').style.display = 'none';
+    const slideScreen = document.getElementById('screen-slides');
+    slideScreen.style.display = 'flex';
+    document.getElementById('mode-text').textContent = mode === 'green' ? '🌱 Greenfield' : '🏗️ Brownfield';
+    cur = 0;
+    renderCurrentStage(true); // Start in message phase
+  }
+
+  function backToIntro() {
+    document.getElementById('screen-slides').style.display = 'none';
+    document.getElementById('screen-intro').style.display = 'flex';
+  }
+
+  function renderCurrentStage(startWithMessage = true) {
+    const data = slideDeckData[mode][cur];
+
+    // 1. Update text in Prime Message
+    document.getElementById('prime-kicker').textContent = data.kicker;
+    document.getElementById('prime-old-head').textContent = data.oldHead;
+    document.getElementById('prime-old-body').textContent = data.oldBody;
+    document.getElementById('prime-now-head').textContent = data.nowHead;
+    document.getElementById('prime-now-body').textContent = data.nowBody;
+    document.getElementById('proof-caption-text').textContent = data.caption;
+
+    // 2. Preload GIF
+    const gifs = getSlideGifs();
+    const gifEl = document.getElementById('stage-gif');
+    if (gifEl.src.indexOf(gifs[cur]) === -1) {
+      gifEl.src = gifs[cur];
+    }
+
+    // 3. Update story ticks
+    for (let i = 0; i < 4; i++) {
+      const tick = document.getElementById(`tick-${i}`);
+      if (!tick) continue;
+      tick.classList.remove('current', 'done');
+      if (i < cur) tick.classList.add('done');
+      else if (i === cur) tick.classList.add('current');
+    }
+
+    // 4. Update stepper dots
+    const dots = document.querySelectorAll('.step-dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === cur);
+    });
+
+    // 5. Update prev button
+    document.getElementById('btn-prev').disabled = (cur === 0);
+
+    // 6. Update CTA hint
+    document.getElementById('cta-label').textContent = data.cta;
+
+    if (startWithMessage) {
+      showMessagePhase();
+    } else {
+      showProofNow();
+    }
+  }
+
+  function showMessagePhase() {
+    isProofPhase = false;
+    document.getElementById('phase-proof').style.display = 'none';
+    const msgWrap = document.getElementById('phase-message');
+    msgWrap.style.display = 'flex';
+    const nextBtn = document.getElementById('btn-hint-cta');
+    if (nextBtn) nextBtn.style.display = 'none';
+  }
+
+  function showProofNow() {
+    isProofPhase = true;
+    document.getElementById('phase-message').style.display = 'none';
+    const proofWrap = document.getElementById('phase-proof');
+    proofWrap.style.display = 'flex';
+    const nextBtn = document.getElementById('btn-hint-cta');
+    if (nextBtn) nextBtn.style.display = 'inline-flex';
+  }
+
+  function changeSlide(delta) {
+    if (delta < 0) {
+      // If currently on proof, first go back to message of same slide
+      if (isProofPhase) {
+        showMessagePhase(false);
+        return;
+      }
+      cur = Math.max(0, cur - 1);
+      renderCurrentStage(true);
+    } else {
+      advanceSlide();
+    }
+  }
+
+  function advanceSlide() {
+    if (!isProofPhase) {
+      // If on message, advance takes to proof
+      showProofNow();
+    } else {
+      // If on proof, advance takes to next slide's message
+      if (cur < 3) {
+        cur++;
+        renderCurrentStage(true);
+      } else {
+        backToIntro();
+      }
+    }
+  }
+
+  function goToSlide(idx) {
+    cur = idx;
+    renderCurrentStage(true);
+  }
+
+  window.addEventListener('resize', () => {
+    const gifs = getSlideGifs();
+    const gifEl = document.getElementById('stage-gif');
+    if (gifEl && gifEl.src.indexOf(gifs[cur]) === -1) {
+      gifEl.src = gifs[cur];
+    }
+  });
+
+  // Handle URL query parameters (?screen=slides&mode=green&step=0&phase=proof)
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('screen') === 'slides') {
+      const qMode = params.get('mode') === 'brown' ? 'brown' : 'green';
+      const qStep = parseInt(params.get('step') || '0', 10);
+      const qPhase = params.get('phase');
+      launchSlides(qMode);
+      if (qStep >= 0 && qStep <= 3) {
+        cur = qStep;
+        renderCurrentStage(qPhase !== 'proof');
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
