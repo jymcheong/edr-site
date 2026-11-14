@@ -65,6 +65,27 @@
     }
   }
 
+  .demo-topbar {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 14px 16px 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .back-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: #8b949e;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.15s ease;
+  }
+  .back-link:hover {
+    color: var(--accent);
+  }
+
   /* ═════════════════════════════════════════════════
      SCREEN 1: STANDALONE INTRO & CHOICE
      ═════════════════════════════════════════════════ */
@@ -579,6 +600,9 @@
 </style>
 </head>
 <body>
+<header class="demo-topbar">
+  <a href="index.html" class="back-link">&larr; edr.sg</a>
+</header>
 
 <!-- ═════════════════════════════════════════════════
      SCREEN 1: STANDALONE INTRO & REALITY CHOICE
@@ -626,7 +650,10 @@
     <div class="theater-mode-tag">
       Mode: <strong id="mode-text">Greenfield</strong>
     </div>
-    <button class="btn-reset-mode" onclick="backToIntro()">Change Starting Point ↺</button>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button class="btn-reset-mode" onclick="backToIntro()">Change Mode &olarr;</button>
+      <a href="index.html" class="btn-reset-mode" style="text-decoration:none;color:#8b949e;">&larr; edr.sg</a>
+    </div>
   </div>
 
   <!-- The Stage Shell -->
