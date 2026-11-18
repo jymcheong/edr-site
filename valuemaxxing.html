@@ -172,7 +172,7 @@
     <p>The agent has all the context and the skills to chase it down in near real time: from the alert, to the exact process that caused it, to the persistence behind it. It then writes a plain-word report with a verdict and what to do next.</p>
 
     <figure style="margin: 28px 0; text-align: center;">
-      <a href="media/valuemaxxing-case-report.jpg" target="_blank" rel="noopener" title="Open full size" style="cursor:zoom-in;display:block;"><img src="media/valuemaxxing-case-report.jpg" alt="Agentic case report: verdict, timeline and evidence written by a cheap model within seconds" style="width:100%;max-width:720px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" /></a>
+      <a href="media/valuemaxxing-case-report.jpg" class="zoomable" title="Tap to enlarge" style="cursor:zoom-in;display:block;"><img src="media/valuemaxxing-case-report.jpg" alt="Agentic case report: verdict, timeline and evidence written by a cheap model within seconds" style="width:100%;max-width:720px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" /></a>
       <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>A real case: 31 seconds of activity, assessed and reported by DeepSeek, closed with a clear verdict.</em></figcaption>
     </figure>
 
@@ -356,5 +356,13 @@
     <p class="legal">© 2026 edr.sg</p>
   </div>
 </footer>
+
+<div id="lightbox" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);overflow:auto;cursor:zoom-out;-webkit-overflow-scrolling:touch;">
+  <img id="lightbox-img" alt="" style="display:block;max-width:none;width:auto;min-width:100%;margin:auto;" />
+</div>
+<script>
+document.querySelectorAll('a.zoomable').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var lb=document.getElementById('lightbox');var im=document.getElementById('lightbox-img');im.src=a.getAttribute('href');im.style.minWidth=window.innerWidth<900?'1280px':'100%';lb.style.display='block';});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('lightbox').style.display='none';});
+</script>
 </body>
 </html>
