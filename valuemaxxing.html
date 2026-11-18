@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ValueMaxxing: Agentic Defense That Tips the Asymmetry · edr.sg</title>
+<meta name="description" content="While everyone is tokenMaxxing, I decided to ValueMaxx. What value is, explained through what it is not.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v3.css?v=20261112b">
+<style>
+  .kicker { color: var(--accent); font-family: var(--font-mono, monospace); font-size: 13px; margin-bottom: 8px; }
+  .takeaway { background: var(--surface); border-left: 3px solid var(--accent); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; }
+  .takeaway p { margin: 0; color: var(--ink); }
+  .prose .ruled { margin: 32px 0 36px; }
+  .prose .ruled > li { padding: 18px 0; line-height: 1.65; }
+  .prose .ruled + p { margin-top: 28px; }
+  @media (max-width: 860px) {
+    .prose .ruled { margin: 28px 0 32px; }
+    .prose .ruled > li { padding: 16px 0; }
+    .prose .ruled + p { margin-top: 26px; }
+  }
+  .infographic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0; }
+  @media (max-width: 760px) { .infographic-grid { grid-template-columns: 1fr; } }
+  
+  .card { border-radius: var(--r-lg); padding: 24px; border: 1px solid var(--hairline); background: var(--surface); }
+  .card.before { border-color: rgba(180, 85, 63, 0.4); background: linear-gradient(180deg, rgba(180, 85, 63, 0.08) 0%, var(--surface) 100%); }
+  .card.after { border-color: rgba(232, 163, 61, 0.5); background: linear-gradient(180deg, rgba(232, 163, 61, 0.08) 0%, var(--surface) 100%); }
+  
+  .card-badge { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px; margin-bottom: 14px; }
+  .before .card-badge { background: var(--rust); color: #fff; }
+  .after .card-badge { background: var(--accent); color: var(--on-accent); }
+  
+  .card-title { font-size: 21px; font-weight: 700; margin-bottom: 14px; color: var(--ink); }
+  .card-list { list-style: none; margin: 0; padding: 0; }
+  .card-list li { padding: 8px 0; border-top: 1px solid var(--hairline); font-size: 14.5px; line-height: 1.45; color: var(--body); }
+  .card-list li:first-child { border-top: 0; padding-top: 2px; }
+  .card-list li strong { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+  <nav class="topbar" aria-label="Main">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <ul class="nav-links">
+      <li><a href="demo.html" style="color:var(--accent);font-weight:600;">Interactive Demo</a></li>
+      <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+      <li><a href="ngo-threats.html">NGO dossier</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Open menu">Menu</summary>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="demo.html" style="color:var(--accent);font-weight:600;">Interactive Demo</a></li>
+        <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+        <li><a href="ngo-threats.html">NGO dossier</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+</div>
+<main class="article" id="content">
+  <header class="article-head">
+    <p class="meta">Perspectives · Active Defense &amp; Strategy · Track 3 · Nov 2026</p>
+    <h1>ValueMaxxing: Agentic Defense That Tips the Asymmetry</h1>
+    <p class="standfirst">While everyone is tokenMaxxing, I decided to ValueMaxx. What value is, explained through what it is not.</p>
+  </header>
+
+  <article class="prose">
+    <div class="takeaway">
+      <p>The outcome: an agentic AI SOC that gives me zero-trust network segmentation, audit recording on demand, and deception for threat response.</p>
+    </div>
+
+    <p>I built it all myself on two $20 a month pro plans, one from Anthropic and one from Google, and tuned the agentic skills that run it.</p>
+
+    <p>It defends my home lab of Linux, Windows and macOS endpoints. My iPhone and iPad are the admin and response channels.</p>
+
+    <p>Day to day, cheap pay-as-you-go Chinese models like DeepSeek and GLM run those skills reliably.</p>
+
+    <p>So what is value? Easiest to show by what burns money without it.</p>
+
+    <h2>1. Flat Networks, or Pricey Ones Still Wide Open</h2>
+    <div class="infographic-grid">
+      <div class="card before">
+        <span class="card-badge">Common Practice</span>
+        <h3 class="card-title">One Big Room</h3>
+        <ul class="card-list">
+          <li><strong>Flat network:</strong> Every device reaches every other device.</li>
+          <li><strong>Costly routing:</strong> Complex and expensive, yet poor segmentation leaves gaps.</li>
+          <li><strong>Liberal port binding:</strong> Services listen to anyone who asks.</li>
+          <li><strong>One foothold:</strong> Get into one machine, reach everything else.</li>
+        </ul>
+      </div>
+      <div class="card after">
+        <span class="card-badge">ValueMaxxed</span>
+        <h3 class="card-title">Micro Zones Like Chat Rooms</h3>
+        <ul class="card-list">
+          <li><strong>Zone in seconds:</strong> No new hardware, no routing change.</li>
+          <li><strong>Members only:</strong> A service is seen only by its zone. Outsiders cannot tell it exists.</li>
+          <li><strong>Many small rooms:</strong> Each holds only who needs to be there.</li>
+          <li><strong>Easy onboarding:</strong> A few teammates or a fleet of kiosks, one key each.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <p>Creating a zone should feel like creating a group chat. Invite who belongs, and nobody else even knows it exists.</p>
+    </div>
+
+    <figure style="margin: 28px 0; text-align: center;">
+      <picture>
+        <source media="(max-width: 640px)" srcset="media/mobile/slide0_zones.gif">
+        <img src="media/slide0_zones.gif" alt="Creating a zone in seconds" style="width:100%;max-width:640px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      </picture>
+    <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>Creating a new zone: name it, and it exists.</em></figcaption>
+    </figure>
+
+    <p>Getting people and machines in is just as easy.</p>
+
+    <p>A few teammates? Each pastes one line with an onboard key, and they are in.</p>
+
+    <p>A fleet of managed kiosks? The old way is both complex and expensive: a certificate authority to run, a VPN gateway licensed per device, and someone on site whenever a certificate quietly expires.</p>
+
+    <p>Here, the same onboard key goes out silently through your existing device management tool. Every kiosk joins its zone with no certificates, no per-device gateway fees and no site visits.</p>
+
+    <figure style="margin: 28px 0; text-align: center;">
+      <picture>
+        <source media="(max-width: 640px)" srcset="media/mobile/slide1_onboard.gif">
+        <img src="media/slide1_onboard.gif" alt="Onboarding teammates or a kiosk fleet with one key" style="width:100%;max-width:640px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      </picture>
+    <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>A few teammates or a whole fleet of kiosks: one key, one line, done.</em></figcaption>
+    </figure>
+
+
+    <h2>2. Paying AI to Read the Noise</h2>
+    <div class="infographic-grid">
+      <div class="card before">
+        <span class="card-badge">Common Practice</span>
+        <h3 class="card-title">Token Furnace</h3>
+        <ul class="card-list">
+          <li><strong>Millions of junk events:</strong> Fed to a model every month.</li>
+          <li><strong>Bigger bill:</strong> A noise problem becomes a cost problem.</li>
+        </ul>
+      </div>
+      <div class="card after">
+        <span class="card-badge">ValueMaxxed</span>
+        <h3 class="card-title">Deterministic First, AI Where It Counts</h3>
+        <ul class="card-list">
+          <li><strong>Free filtering:</strong> Known-good activity dropped by plain rules.</li>
+          <li><strong>Few real cases:</strong> Only those reach the AI.</li>
+          <li><strong>Build, not babysit:</strong> AI value went into building sensors, rules and decoys.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <p>Spend the frontier model once to build the system. Let cheap models run it.</p>
+    </div>
+
+    <p>Bolting AI onto a legacy SIEM is mostly burning tokens. It is unlikely to find any meaningful signal, for two reasons:</p>
+
+    <ul class="ruled">
+      <li><strong>The sensors may already be blind:</strong> Adversarial agents can disarm off-the-shelf sensors, so the logs the AI reads may be missing the very events that matter.</li>
+      <li><strong>The attacker blends in:</strong> An agent that uses normal tools at normal hours looks just like everyday noise. The AI is searching a haystack that may not even contain the needle.</li>
+    </ul>
+
+    <p>Mine works the other way round. Whether it is log tampering or a touch on a decoy, at the file layer or the network layer, the signal is rare and it matters.</p>
+
+    <p>The agent has all the context and the skills to chase it down in near real time: from the alert, to the exact process that caused it, to the persistence behind it. It then writes a plain-word report with a verdict and what to do next.</p>
+
+    <figure style="margin: 28px 0; text-align: center;">
+      <img src="media/valuemaxxing-case-report.jpg" alt="Agentic case report: verdict, timeline and evidence written by a cheap model within seconds" style="width:100%;max-width:720px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>A real case: 31 seconds of activity, assessed and reported by DeepSeek, closed with a clear verdict.</em></figcaption>
+    </figure>
+
+    <h2>3. Hoarding Noisy Audit Logs</h2>
+    <div class="infographic-grid">
+      <div class="card before">
+        <span class="card-badge">Common Practice</span>
+        <h3 class="card-title">Collect Everything</h3>
+        <ul class="card-list">
+          <li><strong>Ship it all:</strong> Every event goes to a central store.</li>
+          <li><strong>Pay to keep it:</strong> Storage and ingestion bills grow with volume.</li>
+          <li><strong>Never read:</strong> Almost none of it answers a real question.</li>
+        </ul>
+      </div>
+      <div class="card after">
+        <span class="card-badge">ValueMaxxed</span>
+        <h3 class="card-title">The Car Cam Approach</h3>
+        <ul class="card-list">
+          <li><strong>Always recording, locally:</strong> Each endpoint keeps a rolling record, like a car dashcam.</li>
+          <li><strong>Smart grouping:</strong> Repetitive low-value lines are grouped and filtered before they pile up.</li>
+          <li><strong>Pull on anomaly:</strong> When something looks wrong, that stretch is pulled and kept for safekeeping.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <p>Like a car cam: always recording, but you only save the clip when something happens.</p>
+    </div>
+
+    <figure style="margin: 28px 0; text-align: center;">
+      <picture>
+        <source media="(max-width: 640px)" srcset="valuemaxxing-pyramid-mobile.jpg?v=2">
+        <img src="valuemaxxing-pyramid.jpg?v=2" alt="Inverted pyramid: activity tracking with smart filtering, high value low frequency audit events, bespoke deception" style="width:100%;max-width:720px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      </picture>
+      <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>Broad and cheap at the top, rare and decisive at the tip.</em></figcaption>
+    </figure>
+
+    <p>This is where traditional SOCs fail miserably. Most of the attention goes to the initial intrusion, the first door the attacker walks through.</p>
+
+    <p>But once inside, poor network design turns lateral movement into a fog. With every machine able to reach every other, telling an attacker's next hop from normal traffic is very hard.</p>
+
+    <p>That is why the pyramid is built the way it is. The broad base of process and network activity is not there to raise alarms. It is the trail.</p>
+
+    <p>When a rare signal fires at the tip, a decoy touch or tampering with the audit log, that trail is already sitting on the endpoint. We follow it back through the process and network activity to the exact process, the pivot it made, and the persistent backdoor behind it.</p>
+
+    <h2>4. Chasing Attack Technique Patterns</h2>
+
+    <div class="infographic-grid">
+      <div class="card before">
+        <span class="card-badge">Common Practice</span>
+        <h3 class="card-title">Rule Treadmill</h3>
+        <ul class="card-list">
+          <li><strong>Always behind:</strong> Techniques change faster than rules get written.</li>
+          <li><strong>Fragile:</strong> One tweaked flag and the signature misses.</li>
+        </ul>
+      </div>
+      <div class="card after">
+        <span class="card-badge">ValueMaxxed</span>
+        <h3 class="card-title">Watch What Attackers Must Do</h3>
+        <ul class="card-list">
+          <li><strong>Must move:</strong> Segmentation leaves very few legitimate paths.</li>
+          <li><strong>Must touch:</strong> Decoys sit where no real user goes.</li>
+          <li><strong>Any technique:</strong> A touch on a decoy is a signal, however it was done.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <p>Do not guess how they will attack. Guard the steps every attack has to take.</p>
+    </div>
+
+    <figure style="margin: 28px 0; text-align: center;">
+      <picture>
+        <source media="(max-width: 640px)" srcset="valuemaxxing-chain-mobile.jpg">
+        <img src="valuemaxxing-chain.jpg" alt="Simplified attack chain: noisy initial access versus recon, persistence and lateral movement where decoys pin-point the backdoor" style="width:100%;max-width:720px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      </picture>
+      <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>Stop chasing the noisy front door. Watch the steps an intruder cannot skip.</em></figcaption>
+    </figure>
+
+    <p>When we focus only on initial access and its endless methods, we are playing the attacker's game. With segmented zones, decoy zones and disk canaries in place, the attacker is now playing ours.</p>
+
+    <p>That is where my deception lives. It is built to trick both adversarial AI and human operators running Agentic Persistent Threats (APT). And it is bespoke, not off the shelf. Advanced, well-funded adversaries can simply buy commercial deception products and reverse engineer them. You cannot buy mine.</p>
+
+    <p>And because creating a zone and onboarding into it is so easy, an agent can build the maze itself. New decoy zones and endpoints appear at the speed of inference and tool calling, not at the speed of a change request.</p>
+
+    <p>Deception reaches the endpoint too. Endpoint vaccination, currently on Windows, makes a machine look like the analysis sandbox that advanced malware is built to avoid. Malware with anti-analysis checks sees the trap and chooses not to run at all. <a href="endpoint-vaccination.html">Read how endpoint vaccination works &rarr;</a></p>
+
+    <p>One touch on a decoy is all it takes. From that single touch, we laser-point straight back to the pivot and the persistence behind it.</p>
+
+    <p>The system audit log works the same way. To an intruder with admin rights, it is honey to bees. They cannot resist tampering with it, and that is exactly what gives them away.</p>
+
+    <h2>5. Building Driver Sensors That Get Disarmed Anyway</h2>
+    <div class="infographic-grid">
+      <div class="card before">
+        <span class="card-badge">Common Practice</span>
+        <h3 class="card-title">Complex Sensors, Sitting Ducks</h3>
+        <ul class="card-list">
+          <li><strong>Driver development:</strong> Kernel drivers per OS are costly, fragile and slow to ship.</li>
+          <li><strong>Well documented:</strong> Off-the-shelf agents come with known ways to switch them off.</li>
+          <li><strong>Blinded first:</strong> After privilege escalation, the attacker silences them and the console stays green.</li>
+        </ul>
+      </div>
+      <div class="card after">
+        <span class="card-badge">ValueMaxxed</span>
+        <h3 class="card-title">Native Audit, Tamper as the Signal</h3>
+        <ul class="card-list">
+          <li><strong>Use what the OS already has:</strong> auditd on Linux, Event Log and Sysmon on Windows, eslogger on macOS.</li>
+          <li><strong>Weakness into signal strength:</strong> With admin rights, an attacker will tamper with logs. Since that is certain, a stopped, edited or silenced log is a high-confidence sign of intrusion.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <p>Every serious intruder will touch the logs. So the touch itself becomes my most reliable alarm.</p>
+      <p style="margin-top:10px;">A hidden, lightweight custom sensor built on moving target defense keeps native audit switched on, and every high value event is stashed away both on the endpoint and remotely. Tamper with one copy, and the other still tells the story.</p>
+    </div>
+
+    <p>Kernel drivers also carry a risk of their own. In July 2024, one faulty CrowdStrike update sent millions of Windows machines into the blue screen of death worldwide. A sensor running that deep can take the whole machine down with it.</p>
+
+    <p>So why did everyone build drivers instead of using native audit? In the old days, experienced sysadmins who knew which audit rules to switch on, and what to filter out, were few and far between. Get it wrong, and you drown in noise or go blind.</p>
+
+    <p>With agentic AI, that is no longer a problem. I combine two layers:</p>
+
+    <ul class="ruled">
+      <li><strong>Deterministic, profile-based filtering:</strong> Known-good behaviour for each endpoint is filtered by plain rules. Fast, free and predictable.</li>
+      <li><strong>Agentic review of every filter:</strong> Before a filter goes live, an agent checks whether it would hide attack context and leave a monitoring gap.</li>
+    </ul>
+
+    <p>The expert sysadmin who was rare is now a skill that runs on every endpoint.</p>
+
+    <p>The same agentic skills also run vulnerability scanning and track patching for every endpoint. Each finding is ranked by risk and followed until it is fixed, so nothing quietly falls off the list.</p>
+
+    <figure style="margin: 28px 0; text-align: center;">
+      <picture>
+        <source media="(max-width: 640px)" srcset="media/mobile/slide3_posture.gif">
+        <img src="media/slide3_posture.gif" alt="Fleet posture view: vulnerability findings ranked and tracked per endpoint" style="width:100%;max-width:640px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      </picture>
+      <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>Know which machine to patch first, and see it through.</em></figcaption>
+    </figure>
+
+    <p>The outcome: patching shrinks the two doors attackers love most, exploits on listening ports and privilege escalation. Fewer ways to get admin rights means fewer chances to tamper with the logs at all.</p>
+
+    <h2>The Asymmetry Tips</h2>
+
+    <p>Put the five together and the economics flip. For years, defense was the expensive side: more licences, more storage, more analysts, and now a bigger token bill.</p>
+
+    <p>ValueMaxxing turns that around. My side runs lean on cheap models and native tools. The attacker now burns time and tokens on decoys, dead ends and tripwires, and every wrong turn gives them away.</p>
+
+    <figure style="margin: 36px 0; text-align: center;">
+      <picture>
+        <source media="(max-width: 640px)" srcset="valuemaxxing-asymmetry-mobile.jpg">
+        <img src="valuemaxxing-asymmetry.jpg" alt="The asymmetry tips: cost-effective agentic defense rises while expensive offensive failures sink" style="width:100%;max-width:720px;height:auto;border-radius:14px;border:1px solid var(--hairline);display:block;margin:0 auto;" />
+      </picture>
+      <figcaption style="margin-top:10px;font-size:14px;color:var(--body);"><em>Defense used to be the expensive side. Now the attacker pays.</em></figcaption>
+    </figure>
+
+    <div class="next-up" style="background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-lg, 14px); padding: 26px 22px; margin-top: 48px;">
+      <p class="kicker">ACTIVE DEFENSE SERIES · TRACK 3</p>
+      <p style="font-size: 15px; line-height: 1.6; color: var(--body); margin-bottom: 16px;">Catch up on the earlier tracks: how micro-segmentation turns lateral movement into inevitable paths, and how endpoint vaccination wins without fighting.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <a href="network-segmentation.html" class="btn btn-outline">Track 1: Micro-Segmentation &rarr;</a>
+        <a href="endpoint-vaccination.html" class="btn btn-outline">Track 2: Endpoint Vaccination &rarr;</a>
+        <a href="demo.html" class="btn btn-primary">See it work in 2 minutes &rarr;</a>
+      </div>
+    </div>
+  </article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">edr.sg</a>
+    <div class="foot-grid">
+      <p>Sovereign endpoint defense and active threat detection.</p>
+      <div><h4>Read</h4><a href="advisories.html">Advisories</a><a href="ngo-threats.html">NGO threat dossier</a></div>
+      <div><h4>Platform</h4><a href="index.html#architecture">Architecture</a><a href="index.html#evidence">Case evidence</a></div>
+      <div><h4>About</h4><a href="about.html">The architect</a></div>
+    </div>
+    <p class="legal">© 2026 edr.sg</p>
+  </div>
+</footer>
+</body>
+</html>
