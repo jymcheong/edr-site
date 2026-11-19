@@ -60,6 +60,14 @@
   .trad .meter-fill { background: var(--rust); }
   .cs .meter-fill { background: var(--accent); }
   .cmp-note { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--hairline); font-size: 0.95em; line-height: 1.6; color: var(--body); }
+  .sources-box { margin-top: 16px; }
+  .sources-box summary { display: inline-block; list-style: none; cursor: pointer; font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--accent); background: var(--surface); border: 1px solid var(--edge); border-radius: var(--r-full); padding: 8px 16px; }
+  .sources-box summary::-webkit-details-marker { display: none; }
+  .sources-box[open] summary { border-color: var(--accent); margin-bottom: 12px; }
+  .sources-list { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 16px 20px; font-size: 0.88em; line-height: 1.6; color: var(--soft); }
+  .sources-list ul { margin: 0; padding-left: 18px; }
+  .sources-list li { margin-bottom: 6px; }
+  .sources-list li:last-child { margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -207,7 +215,18 @@
           <p class="cmp-note">Only rare, high-value signals reach the AI, which traces the exact process behind the alert and delivers a plain-English verdict in seconds.</p>
         </div>
       </div>
-      <p style="font-size: 0.85em; color: var(--soft); margin-top: 10px; line-height: 1.55;"><strong>Cost benchmark sources (100-user SME, USD):</strong> Firewalls &amp; switches from Fortinet / NextGen Group SMB appliance &amp; PoE+ switch pricing ($3.3k to $12k hardware + $800 to $2k/yr UTM + $1.5k to $4k MSP setup); VPN/ZTNA from OpenVPN / Twingate / Proton Business ($5 to $12/user/mo); EDR + SIEM from SecurityBudget / SIEMCostCalculator 100-endpoint ranges ($9.6k to $30k/yr); Vulnerability scanning from UnderDefense / Tenable One 100-asset list pricing (~$37/asset/yr, Nessus Pro $4,790/yr); Managed SOC/MDR from WhyCrew / SecurityOperationsCost ($15 to $40/endpoint/mo, onboarding up to $5k).</p>
+      <details class="sources-box">
+        <summary>Sources (100-user SME benchmarks) +</summary>
+        <div class="sources-list">
+          <ul>
+            <li><strong>Segmentation &amp; Firewalls:</strong> Fortinet / NextGen Group SMB appliance &amp; PoE+ switch pricing ($3.3k to $12k hardware + $800 to $2k/yr UTM + $1.5k to $4k MSP setup).</li>
+            <li><strong>Access &amp; Onboarding:</strong> OpenVPN / Twingate / Proton Business ($5 to $12/user/mo for 100 users).</li>
+            <li><strong>Audit &amp; Endpoint Logging:</strong> SecurityBudget / SIEMCostCalculator 100-endpoint EDR + SIEM ranges ($9.6k to $30k/yr).</li>
+            <li><strong>Vulnerability &amp; Patch Tracking:</strong> UnderDefense / Tenable One 100-asset list pricing (~$37/asset/yr; Nessus Pro $4,790/yr).</li>
+            <li><strong>24/7 Monitoring &amp; Triage:</strong> WhyCrew / SecurityOperationsCost Managed SOC/MDR ($15 to $40/endpoint/mo, onboarding up to $5k).</li>
+          </ul>
+        </div>
+      </details>
     </div>
 
     <div class="takeaway">
